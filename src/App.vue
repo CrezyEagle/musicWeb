@@ -1,26 +1,34 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+ <div class="he">
+   <tab-bar></tab-bar>
+
+<router-view v-slot="{ Component }">
+  <keep-alive>
+    <component :is="Component" />
+  </keep-alive>
+</router-view>
+ </div>
+ 
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import tabBar from 'components/common/tabBar/tabBar.vue'
+
 
 export default {
+  components: { tabBar,},
   name: 'App',
-  components: {
-    HelloWorld
-  }
+
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+@import "assets/css/base.css";
+.he{
+  background-color: #F5F5F5;
 }
+
+
+
+
 </style>

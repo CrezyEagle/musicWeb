@@ -1,0 +1,28 @@
+/* @import "./normalize.css"; */
+/* @import "./swiper.min.css"; */
+
+:root {
+  --color--pink:#ffc0cb;
+  --color--baise:#fff
+}
+html{
+  font-size: 14px;
+}
+@media screen and (max-width: 300px){
+   
+    html{
+      font-size: 1px;
+    }
+}
+@media screen and (max-width: 800px){
+   
+  html{
+    font-size: 4px;
+  }
+}
+@media screen and (max-width: 1400px){
+   
+  html{
+    font-size: 6px;
+  }
+}
