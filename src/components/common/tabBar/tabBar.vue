@@ -67,28 +67,8 @@ export default {
 };
 </script>
 
-<style>
-/* html{
-  font-size: 10px;
-} */
-/* @media screen and (min-width: 1200px){
-   
-    .tabbar{
-      font-size: 0.2rem;
-    }
-}
-@media screen and (min-width: 1400px){
- 
-    .tabbar{
-      font-size: 0.4rem;
-    }
-}
-@media screen and (min-width: 1800px){
+<style scoped>
 
-    .tabbar{
-      font-size:0.1rem;
-    }
-} */
 .hot{
   background-image: url("~assets/img/tabBar/topbar.png");
   background-repeat: no-repeat;
@@ -101,8 +81,11 @@ export default {
 .tabbar {
   background-color: #242424;
   top: 0;
-  font-size: 0.8rem;
+  font-size: .067262rem;
   display: flex;
+  overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   justify-content: center;
   height: 70px;
   color: #CCCCCC;

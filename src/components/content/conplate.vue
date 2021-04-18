@@ -1,8 +1,9 @@
 <template>
+<!-- 歌碟封装 -->
   <div class="conp" v-if="weekData.length!=0">
     <div class="dat">
       <img :src="weekData.blurPicUrl" alt="" />
-      <a href="" class="ya"></a>
+      <a href="JavaScript:;" class="ya"></a>
     </div>
     <div class="da">{{weekData.name}}</div>
     <div class="xx">{{weekData.artist.name}}</div>
@@ -35,8 +36,9 @@ export default {
   position: relative;
   box-shadow: 5px 4px 12px -3px #000;
   height: 100px;
+  margin-right: 10px;
 }
-img{
+.dat img{
   width: 100%;
   height: 100%;
 }
@@ -53,7 +55,7 @@ img{
   overflow: hidden;
   color: #000;
   margin-top: 10px;
-  font-size: 0.83rem;
+  font-size: .067788rem;
   height: 18px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -66,7 +68,7 @@ img{
   height: 18px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.9rem;
+  font-size: .068313rem;
   color: #666666;
 }
 </style>

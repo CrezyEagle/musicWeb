@@ -1,4 +1,5 @@
 <template>
+<!-- 单个榜单封装 -->
   <div class="rangl" v-if='Object.keys(obj).length!=0'>
     <div class="imga"><img :src="obj.coverImgUrl" alt="" /></div>
     <div class="wz">
@@ -35,10 +36,15 @@ export default {
 
 }
 .imga img {
+  height: 100%;
   width: 100%;
 }
 .wz{
   flex: 1;
+  overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  font-size: .063058rem;
   margin-left: 5%;
 }
 .gx{

@@ -75,7 +75,7 @@ export default {
       swipersj()
         .then((res) => {
           this.arr = res.data.blocks[0].extInfo.banners;
-          console.log(this.arr);
+          // console.log(this.arr);
         })
         .catch((err) => {
           console.log(err);
@@ -122,7 +122,7 @@ body {
 body {
   background: #eee;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: .073568rem;
   color: #000;
   margin: 0;
   padding: 0;
@@ -152,7 +152,8 @@ img {
 }
 .swiper-slide {
   text-align: center;
-  font-size: 18px;
+  cursor: pointer;
+  font-size: .094587rem;
   background: #fff;
   /* height: 100%; */
   width: 780px;

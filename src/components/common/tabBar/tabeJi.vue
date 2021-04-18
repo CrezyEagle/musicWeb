@@ -1,6 +1,6 @@
 <template>
   <div class="tabeji" :class="{activ1:isShow==index}">
-    <div>{{item}}</div>
+    <div ><a href="JavaScript:;" :class="{activ3:isShow==index}">{{item}}</a></div>
     <div class="activ" v-show="isShow==index"></div>
   </div>
 </template>
@@ -26,6 +26,7 @@ export default {
 
 <style scoped>
 .tabeji{
+
   line-height: 70px;
   padding: 0 19px;
   height: 100%;
@@ -35,8 +36,16 @@ export default {
     text-overflow: ellipsis;
   text-align: center;
 }
+a{
+  text-decoration: none;
+  color: #CCCC;
+}
 .activ1{
   background-color: #000000;
+
+}
+.activ3{
+  color: #FFFFFF;
 }
 .activ{
    background-image: url("~assets/img/tabBar/topbar.png");

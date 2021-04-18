@@ -1,16 +1,25 @@
 <template>
    <div class="tob">
-      <div class="rm">{{name}}</div>
+      <div class="rm" @click="fn()">{{name}}</div>
       <div class="fle">
         <span v-for="(item,index) in arr" :key="index" class="sp">{{item}}</span>
       </div>
       <div class="zw"></div>
-      <div class="gd">更多</div>
+      <slot name="gduo"><div class="gd" @click="fn()">更多</div></slot>
     </div> 
 </template>
 
 <script>
 export default {
+  methods:{
+    fn(){
+      if(this.routera!=""){
+        this.$router.push({
+          path:this.routera
+        })
+      }
+    }
+  },
 props:{
   arr:{
     type:Array,
@@ -19,6 +28,11 @@ props:{
     }
   },
   name:{
+    type:String,
+    default:''
+  },
+
+  routera:{
     type:String,
     default(){
       return ''
@@ -42,7 +56,7 @@ props:{
 }
 .rm{
   margin-right: 5px;
-  font-size: 1.5rem;
+  font-size: .099842rem;
   padding-left: 25px;
   margin-left: 10px;
   background: url(~assets/img/精灵图1.png) no-repeat;
@@ -52,7 +66,7 @@ props:{
   padding-right: 20px;
   padding-left: 20px;
   color: #adadad;
-  font-size: 0.8rem;
+  font-size: .067262rem;
   border-right: 2px solid #acabab;
 }
 .sp:nth-child(5){
@@ -65,7 +79,8 @@ props:{
   padding-right: 20px;
   background: url(~assets/img/精灵图1.png) no-repeat;
   background-position: 33px -237px;
-  font-size: 0.8rem;
+  font-size: .066211rem;
+  cursor: pointer;
 }
 
 </style>

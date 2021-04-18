@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Tuijian from 'views/Home/tuijian/index.vue'
 const Paihang=()=>import('views/Home/paihang/index.vue')
 const Home=()=>import('views/Home/index.vue')
+const Song=()=>import('views/Home/song.vue')
 const routes=[{
   path:'',
   redirect:'/home'
@@ -15,22 +16,32 @@ const routes=[{
   children:[{
     path:'',
   redirect:'/home/tuijian'
-  },{
+  },
+  {
     path:'tuijian',
-    component:Tuijian
+    component:Tuijian,
+    meta:{
+      title:"推荐"
+    },
   },
   {
     path:'paihang',
-    component:Paihang
-  }]
+    component:Paihang,
+    meta:{
+      title:"排行"
+    },
+  },
+  {
+    path:'song',
+    component:Song,
+    meta:{
+      title:"歌曲详情"
+    }
+  }
+
+]
 },
-// {
-//   path: '/paihang',
-//   component:Paihang,
-//   meta:{
-//     title:"首页排行"
-//   }
-// },
+
 ]
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

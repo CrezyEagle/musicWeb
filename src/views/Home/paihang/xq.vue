@@ -9,13 +9,11 @@
             gedanxq.updateFrequency
           }}）
         </div>
-        <div class="tb">
-          <span><div><div class="ii"> </div>播放</div></span>
-          <span></span>
-          <span><div>{{ gedanxq.shareCount }}</div></span>
-          <span><div>下载</div></span>
-          <span><div>{{ gedanxq.commentCount }}</div></span>
-        </div>
+        <bftb :fx='gedanxq.shareCount' :pl='gedanxq.commentCount' @bfa='bfg()'>
+          <template v-slot:sc>
+            <div></div>
+          </template>
+        </bftb>
       </div>
     </div>
     <!-- 歌曲列表 -->
@@ -24,11 +22,37 @@
       <div>{{gedanxq.tracks.length}}首歌</div>
       <div>播放：<span>{{gedanxq.playCount}}</span>次</div>
     </div>
+    <tablea :obj="gedanxq" :bf='bf'></tablea>
+    <!-- 评论导航 -->
+    <navbar name="评论">
+      <template v-slot:gduo>
+        <div>
+          
+        </div>
+      </template>
+    </navbar>
+    <div class="zx">最新评论</div>
+    <pinlun :id="gedanxq.id" class="pla"></pinlun>
   </div>
 </template>
 
 <script>
+import Navbar from 'components/content/navbar.vue';
+import Pinlun from 'components/content/pinlun/pinlun.vue';
+import tablea from './tablea.vue';
+import Bftb from 'components/content/bftb.vue';
 export default {
+  components: { tablea, Navbar, Pinlun, Bftb },
+  data() {
+    return {
+      bf:0
+    }
+  },
+  methods:{
+    bfg(){
+this.bf++
+    }
+  },
   computed: {
     //时间格式化
     sj() {
@@ -61,6 +85,9 @@ export default {
 </script>
 
 <style scoped>
+.pla{
+  width: 100%;
+}
 .gqlb{
   margin-top: 40px;
   display: flex;
@@ -71,18 +98,18 @@ export default {
   width: 100%;
 }
 .gqlb div:nth-child(1){
-  font-size: 1.2rem;
+  font-size: .089333rem;
 }
 .gqlb div:nth-child(2){
   flex: 1;
   margin-left: 20px;
-  font-size: 0.8rem;
+  font-size: .058854rem;
   color: #666666;
 }
 .gqlb div:nth-child(3){
 
   margin-left: 20px;
-  font-size: 0.9rem;
+  font-size: .066211rem;
   color: #666666;
 }
 .gqlb div:nth-child(3) span{
@@ -105,6 +132,8 @@ export default {
 }
 .timg{
   position: relative;
+  padding: 3px;
+  border: 1px solid #CCCCCC;
 }
 img {
   width: 150px;
@@ -128,99 +157,22 @@ img {
   margin-left: 20px;
 }
 .name {
-  font-size: 1.4rem;
+  font-size: .094587rem;
   margin: 10px 0px;
-}.ii{
-  float: left;
-    width: 20px;
-    height: 18px;
-    margin: 6px 2px 2px 0;
-    background-position: 0 -1622px;
-    overflow: hidden;
-      background-image: url(~assets/img/精灵图5.png);
 }
 .sj {
-  font-size: 0.8rem;
+  font-size: .058854rem;
   margin-bottom: 30px;
   display: flex;
   align-items: center;
   color: #666666;
 }
-.tb{
-  display: flex;
-    align-items: center;
+.zx{
+  margin-top: 20px;
+  padding-bottom: 10px;
+  font-size: .073568rem;
+  font-weight: 600;
+  border-bottom: 1px solid #cfcfcf;
 }
-.tb span {
-  display: inline-block;
 
-}
-.tb span>div{
-     background-position: 0 -387px;
-  background-image: url(~assets/img/精灵图5.png);
-    padding: 0 7px 0 8px;
-
-    height: 31px;
-    line-height: 31px;
-    overflow: hidden;
-    vertical-align: top;
-    text-align: center;
-    cursor: pointer;
-  display: inline-block;
-}
-.tb span:nth-child(1) {
-  /* width: 200px; */
- background-position: right -428px;
- background-image: url(~assets/img/精灵图5.png);
-}
-.tb span:nth-child(2){
-      margin-right: 5px;
-          width: 31px;
-    margin-left: -3px;
-    padding-right: 0;
-     background-image: url(~assets/img/精灵图5.png);
-         padding: 0 5px 0 0;
-        
-    height: 31px;
-    line-height: 30px;
-    min-width: 23px;
-    cursor: pointer;
-    background-position: 0 -1588px;
-}
-.tb span:nth-child(3){
-      background-position: right -1020px;
-       background-image: url(~assets/img/精灵图5.png);
-           padding: 0 5px 0 0;
-}
-.tb span:nth-child(3)>div{
-  background-position: 0 -1225px;
-      background-image: url(~assets/img/精灵图5.png);
-          padding-right: 2px;
-    padding-left: 28px;
-}
-.tb span:nth-child(4){
-  margin-left: 10px;
-      background-position: right -1020px;
-       background-image: url(~assets/img/精灵图5.png);
-           padding: 0 5px 0 0;
-}
-.tb span:nth-child(4)>div{
-     background-position: 0 -2761px;
-
-      background-image: url(~assets/img/精灵图5.png);
-          padding-right: 2px;
-    padding-left: 28px;
-}
-.tb span:nth-child(5){
-  margin-left: 10px;
-      background-position: right -1020px;
-       background-image: url(~assets/img/精灵图5.png);
-           padding: 0 5px 0 0;
-}
-.tb span:nth-child(5)>div{
-       background-position: 0 -1465px;
-
-      background-image: url(~assets/img/精灵图5.png);
-          padding-right: 2px;
-    padding-left: 28px;
-}
 </style>

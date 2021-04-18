@@ -8,7 +8,7 @@
         :class="{ activ: index == isShow }"
         @click="fn(index, item.routera)"
       >
-        {{ item.name }}
+        <a href="JavaScript:;">{{ item.name }}</a>
       </div>
       <!-- <router-view/> -->
     </div>
@@ -46,8 +46,38 @@ export default {
         },
       ],
       isShow: 0,
+      js:1,
     };
   },
+  activated(){
+    this.route
+    console.log("刷新页面");
+  },
+  watch:{
+    hrefa(){
+      this.js=1
+      this.route
+      if(this.js!=2){
+        this.isShow=-1
+        console.log(-2);
+      }
+    }
+  },
+  computed: {
+    hrefa(){
+      return this.$route.href
+    },
+    route() {
+      this.arr.forEach((element, index) => {
+        if (element.routera == this.$route.href) {
+        this.js=2
+
+         this.isShow= index;
+        }
+      });
+    },
+  },
+
   methods: {
     fn(index, rot) {
       this.$router.push({
@@ -55,34 +85,28 @@ export default {
       });
       this.isShow = index;
       this.$router.push(this.arr[index].routera);
-      console.log(rot);
     },
   },
 };
 </script>
 
 <style scoped>
-/* @media screen and (min-width: 1400px){
- 
-    .yuanq{
-      font-size: 0.5rem;
-    }
+a {
+  text-decoration: none;
+  color: #fff;
 }
-@media screen and (min-width: 1600px){
-
-    .yuanq{
-      font-size:0.8rem;
-    }
-} */
 .tobbartow {
   display: flex;
   top: 70px;
   width: 100%;
   background-color: #c20c0c;
   display: flex;
-  font-size: 0.6rem;
+  font-size: 0.050447rem;
   color: #fff;
   justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   height: 35px;
 }
 .ac {

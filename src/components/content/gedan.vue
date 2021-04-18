@@ -40,7 +40,7 @@ a{
  height: 100%;
  color: #fff;
  text-decoration: none;
- font-size: 0.6rem;
+ font-size: .050447rem;
   position: relative;
   display: block;
 }
@@ -77,6 +77,6 @@ span:nth-child(4){
       background-position: 0 0;
 }
 .an{
-  font-size: 0.9rem;
+  font-size: .063058rem;
 }
 </style>

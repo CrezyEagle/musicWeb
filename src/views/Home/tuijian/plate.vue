@@ -144,7 +144,7 @@ export default {
 body {
   background: #eee;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: .073568rem;
   color: #000;
   margin: 0;
   padding: 0;
@@ -171,7 +171,7 @@ body {
 }
 .swiper-slide {
   text-align: center;
-  font-size: 18px;
+  font-size: .094587rem;
   background: #fff;
   height: 100px;
 

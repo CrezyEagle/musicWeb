@@ -1,8 +1,9 @@
 <template>
-<div class="rang" v-if='Object.keys(gq).length!=0'>
-  <!-- 排行榜歌曲 -->
+<div class="rang" v-if='Object.keys($props.obj).length!=0'>
+  <!-- 首页歌单排行榜歌曲 -->
   <div class="px" :class="{acitv2:index==ov}">{{index+1}}</div>
-  <div class="gm" :class="{acitv:index==ov}">{{gq.songs[0].al.name}}</div>
+  <div class="gm" :class="{acitv:index==ov}">{{obj.al.name}}</div>
+  
   <div class="dp" v-show="index==ov" >
     <div class="bf"></div>
     <div class="tj"></div>
@@ -12,7 +13,7 @@
 </template>
 
 <script>
-import geq from 'network/gequ/gequ.js'
+// import geq from 'network/gequ/gequ.js'
 export default {
 data() {
   return {
@@ -24,20 +25,14 @@ methods:{
     this.inedx
   }
 },
-mounted() {
-  console.log(this.obj);
-  geq(this.obj).then(res=>{
-    this.gq=res
-    // console.log(this.gq.songs[0].al.name);
-  }).catch(err=>{
-    console.log(err);
-  })
-},
+
 
 props:{
   obj:{
-    type:Number,
-    ddefault:0
+    type:Object,
+    ddefault(){
+      return {}
+    }
   },
   index:{
     type:Number,
@@ -59,7 +54,10 @@ props:{
 .acitv{
   text-decoration: underline;
   width: 50% !important;
-  font-size: 1.1rem;
+  font-size: .092486rem;
+}
+a{
+  width: 100%;
 }
 .acitv2{
   margin-left: 15px !important;
@@ -79,7 +77,7 @@ props:{
   width: 20px;
   text-align: center;
   float: left;
-  font-size: 1.2rem;
+  font-size: .100893rem;
 }
 .dp{
   height: 20px;
@@ -91,7 +89,7 @@ props:{
 .rang{
   display: flex;
   width: 100%;
-
+align-items: center;
   box-sizing: border-box;
   padding: 8px;
   /* justify-content: space-between; */

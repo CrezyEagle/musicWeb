@@ -2,9 +2,10 @@
 <!-- 首页榜单 -->
   <div class="
   rankinList" v-if="arr.length!=0">
-    <navbar name="榜单"></navbar>
+    <navbar name="榜单" routera="/home/paihang"></navbar>
     <div class="nn">
-      <rankingxq class="bda" v-for="(item,index) in arr1" :obj="item" :key="index"></rankingxq>
+      <!-- 将id传给子组件 -->
+      <rankingxq class="bda" v-for="(item,index) in arr1" :ida="item.id" :key="index" @click="fn(index)"></rankingxq>  
     </div>
   </div>
 </template>
@@ -17,12 +18,22 @@ export default {
     data() {
     return {
       arr:[],
-      arr1:[]
+      arr1:[],
+
     }
   },
+methods:{
+fn(index){
+  this.$store.commit('paihgb',index)
+  console.log(this.$store.state.paih);
+   this.$router.push({
+        path:'/home/paihang'
+      })
+}
+},
 created(){
+  //获取全部歌单，截取前3个歌单
   rankingList().then(res=>{
-console.log(11);
 this.arr=res.list
 this.arr1.push(this.arr[0])
 this.arr1.push(this.arr[1])
