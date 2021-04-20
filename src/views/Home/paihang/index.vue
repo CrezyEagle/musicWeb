@@ -55,6 +55,7 @@ export default {
     },
     rout() {
       this.isShow = this.$store.state.paih;
+      this.isShow2=-1
       rankingList().then((res) => {
         //请求排行榜所有歌单
         this.arr = res.list;

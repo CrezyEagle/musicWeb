@@ -5,7 +5,7 @@
   <div class="gm" :class="{acitv:index==ov}">{{obj.al.name}}</div>
   
   <div class="dp" v-show="index==ov" >
-    <div class="bf"></div>
+    <div class="bf" @click="fn2()"></div>
     <div class="tj"></div>
     <div class="wj"></div>
   </div>
@@ -13,16 +13,38 @@
 </template>
 
 <script>
-// import geq from 'network/gequ/gequ.js'
+import gedan from 'network/home/gedan/index3.js'
+import { gedanfz } from "network/home/gedan/goods.js";
 export default {
 data() {
   return {
-    gq:[]
+    gq:[],
+    gedanxq:null
   }
 },
 methods:{
   fn(){
     this.inedx
+  },
+  fn2(){
+    //播放歌曲,将整个歌单上传
+    this.$store.commit('setindex',this.index-1)
+    console.log(this.index-1);
+  gedan(this.id).then(res=>{
+     this.gedanxq = new gedanfz(
+            res.playlist.name,
+            res.playlist.coverImgUrl,
+            res.playlist.commentCount,
+            res.playlist.shareCount,
+            res.playlist.updateTime,
+            10,
+            res.playlist.tracks,
+            res.playlist.playCount,
+            res.playlist.id
+          );
+          this.$store.commit('setarr',this.gedanxq.tracks.splice(0,10))
+  this.$store.dispatch('xysg')
+  })
   }
 },
 
@@ -35,6 +57,13 @@ props:{
     }
   },
   index:{
+    type:Number,
+    ddefault(){
+      return 0
+    }
+  },
+  //歌单id
+  id:{
     type:Number,
     ddefault(){
       return 0
@@ -99,6 +128,7 @@ align-items: center;
       width: 17px;
     height: 17px;
     margin-right: 10px;
+    cursor: pointer;
     background-position: -267px -268px;
 }.tj{
   width: 17px;

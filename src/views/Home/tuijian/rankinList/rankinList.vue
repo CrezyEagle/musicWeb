@@ -5,7 +5,7 @@
     <navbar name="榜单" routera="/home/paihang"></navbar>
     <div class="nn">
       <!-- 将id传给子组件 -->
-      <rankingxq class="bda" v-for="(item,index) in arr1" :ida="item.id" :key="index" @click="fn(index)"></rankingxq>  
+      <rankingxq class="bda" v-for="(item,index) in arr1" :ida="item.id" :index='index' :key="index" ></rankingxq>  
     </div>
   </div>
 </template>
@@ -23,13 +23,7 @@ export default {
     }
   },
 methods:{
-fn(index){
-  this.$store.commit('paihgb',index)
-  console.log(this.$store.state.paih);
-   this.$router.push({
-        path:'/home/paihang'
-      })
-}
+
 },
 created(){
   //获取全部歌单，截取前3个歌单

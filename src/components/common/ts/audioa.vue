@@ -7,20 +7,26 @@
       :muted="muted"
       :src="url"
       controls
-      :loop="xha==0"
+      :loop="xha == 0"
       @canplay="canplay"
       @stalled="stalled"
       @canplaythrough="canplaythrough"
       @progress="progress"
       @timeupdate="timeupdate"
-         @play="play"
-         @pause="pause"
+      @play="play"
+      @pause="pause"
     ></audio>
     <!-- 切换控键 -->
     <div class="bf">
       <!-- 上一首 -->
       <a v-if="syszt" href="JavaScript:;" class="sys" @mouseover="sys()"></a>
-      <a v-else href="JavaScript:;" class="sys2" @mouseout="sys2()" @click="clicksys"></a>
+      <a
+        v-else
+        href="JavaScript:;"
+        class="sys2"
+        @mouseout="sys2()"
+        @click="clicksys"
+      ></a>
       <!-- 播放暂停 -->
       <a v-if="!bf" href="JavaScript:;" class="zt" @click="fn(1)"></a>
       <a v-else href="JavaScript:;" class="bfan" @click="fn(1)"></a>
@@ -39,7 +45,9 @@
       <img :src="img" alt="" @click="clickImg()" />
       <div>
         <div class="gqxq">
-          <span>{{gqname}}</span><span class="gqname">{{name}}</span><span class="fx"></span>
+          <span>{{ gqname }}</span
+          ><span class="gqname">{{ name }}</span
+          ><span class="fx"></span>
         </div>
         <div class="jind" ref="jind">
           <!-- 左进度 -->
@@ -49,7 +57,6 @@
             ref="dian"
             @mousedown="mousedown"
             @mouseup="mouseup"
-         
             :style="{ left: progress1 }"
           >
             <i v-show="jzz"></i>
@@ -67,10 +74,10 @@
     <!-- 操作按键 -->
     <div class="anj">
       <div class="yinl" @click="mik()"></div>
-       <div class="xh2" v-if="xha==0" @click="zj()"></div>
-       <div class="xh3" v-else-if="xha==1" @click="zj()"></div>
+      <div class="xh2" v-if="xha == 0" @click="zj()"></div>
+      <div class="xh3" v-else-if="xha == 1" @click="zj()"></div>
       <div class="xh" v-else @click="guil()"></div>
-     
+
       <div class="yinlxq" v-show="xs">
         <div class="jia" @click="jia()">+</div>
         <span>{{ yl }}</span>
@@ -85,10 +92,10 @@ export default {
   data() {
     return {
       muted: false, //是否为静音
-      id:'',  //  歌曲id
-      name:'crazyEagle',
-      gqname:'请添加歌曲',
-      img:'',
+      id: "", //  歌曲id
+      name: "crazyEagle",
+      gqname: "请添加歌曲",
+      img: "",
       url: "",
       time2: "0:00", //当前播放的时间
       time: "0:00", //总时间
@@ -101,45 +108,44 @@ export default {
       jzz: false, //加载显示图标
       yl: 10, //  音量
       xs: false, //显示隐藏音量设置
-      xha:2 //循环控制
-     
+      xha: 2, //循环控制
     };
   },
 
   watch: {
     urln(a, b) {
       this.url = a;
-      setTimeout(()=>{
-        this.fg()
-      },500)
+      setTimeout(() => {
+        this.fg();
+      }, 500);
     },
-    namea(a,b){
+    namea(a, b) {
       this.name = a;
     },
-     gqnamea(a,b){
+    gqnamea(a, b) {
       this.gqname = a;
     },
-     imga(a,b){
+    imga(a, b) {
       this.img = a;
     },
-     ida(a,b){
+    ida(a, b) {
       this.id = a;
-    }
+    },
   },
   computed: {
     urln() {
       return this.$store.state.a.urln;
     },
-    namea(){
+    namea() {
       return this.$store.state.a.name;
     },
-    gqnamea(){
+    gqnamea() {
       return this.$store.state.a.gqname;
     },
-    imga(){
+    imga() {
       return this.$store.state.a.imega;
     },
-    ida(){
+    ida() {
       return this.$store.state.a.id;
     },
     //时间格式化
@@ -153,22 +159,22 @@ export default {
     },
   },
   methods: {
-    zj(){
-      this.xha++
-      this.$store.commit('setxha')
+    zj() {
+      this.xha++;
+      this.$store.commit("setxha");
     },
-    guil(){
-      this.xha=0
-      this.$store.commit('setxha2')
+    guil() {
+      this.xha = 0;
+      this.$store.commit("setxha2");
     },
     //前往歌曲详情
-    clickImg(){
-       this.$router.push({
-        path: '/home/song',
+    clickImg() {
+      this.$router.push({
+        path: "/home/song",
       });
     },
-    fg(){
-      this.$refs.aud.play()
+    fg() {
+      this.$refs.aud.play();
     },
     //音量修改
     jia() {
@@ -189,11 +195,11 @@ export default {
       this.jzz = true;
     },
     //音乐播放中
-    play(){
-      this.bf=false
+    play() {
+      this.bf = false;
     },
     //音乐暂停中调用
-    pause(){
+    pause() {
       this.bf = true;
     },
     //音乐加载中调用
@@ -206,18 +212,18 @@ export default {
     },
     //点击下一首
     clickxys() {
-      if(this.xha==2){
-        this.$store.dispatch('xysg')
-      }else if(this.xha==1){
-        this.$store.dispatch('xysgsj')
+      if (this.xha == 2) {
+        this.$store.dispatch("xysg");
+      } else if (this.xha == 1) {
+        this.$store.dispatch("xysgsj");
       }
     },
     //点击上一首
-      clicksys() {
-      if(this.xha==2){
-        this.$store.dispatch('sysg')
-      }else if(this.xha==1){
-        this.$store.dispatch('sysgsj')
+    clicksys() {
+      if (this.xha == 2) {
+        this.$store.dispatch("sysg");
+      } else if (this.xha == 1) {
+        this.$store.dispatch("sysgsj");
       }
     },
     //进度条控制
@@ -230,9 +236,12 @@ export default {
       this.$refs.jind.onmousemove = null;
     },
     mousedown(e) {
+     
       this.bf = true;
       this.$refs.aud.pause();
+       
       document.onmousemove = (e) => {
+            
         //拖动小圆点，进度条滑动
         this.progress1 =
           Number(
@@ -245,42 +254,40 @@ export default {
         this.$refs.aud.currentTime =
           Number((e.pageX - this.$refs.jind.offsetLeft - this.jl) / 490) *
           this.$refs.aud.duration;
-           //鼠标弹起
-             this.$refs.jind.onmouseup = (e) => {
-        document.onmousemove = null;
-        this.bf = false;
-        this.$refs.aud.play();
+        //鼠标弹起
+        this.$refs.jind.onmouseup = (e) => {
+      this.$store.commit("jdt",this.progress1);
+          document.onmousemove = null;
+          this.bf = false;
+          this.$refs.aud.play();
+        };
+        document.onmouseup = (e) => {
+           
+          document.onmousemove = null;
+          this.bf = false;
+          this.$refs.aud.play();
+        };
       };
-       document.onmouseup=(e)=>{
-        document.onmousemove = null;
-        this.bf = false;
-        this.$refs.aud.play();
-      }
-      };
-     
-   
-     
     },
 
     //音乐加载完成就将音乐长度获取到
     progress() {
       this.time = this.sjgsh(this.$refs.aud.duration);
-    
-      
-      
     },
     //当音乐播放时
     timeupdate() {
       //获取当前进度时间
       this.time2 = this.sjgsh(this.$refs.aud.currentTime);
+      
       this.progress1 =
         (this.$refs.aud.currentTime / this.$refs.aud.duration) * 100 + "%";
-        if(parseFloat(this.progress1.substr(0,4))>=99.6&&this.xha==2){
-          this.$store.dispatch('xysg')
-        }
-        if(parseFloat(this.progress1.substr(0,4))>=99.6&&this.xha==1){
-          this.$store.dispatch('sysgsj')
-        }
+      if (parseFloat(this.progress1.substr(0, 4)) >= 99.6 && this.xha == 2) {
+        this.$store.dispatch("xysg");
+      }
+      if (parseFloat(this.progress1.substr(0, 4)) >= 99.6 && this.xha == 1) {
+        this.$store.dispatch("sysgsj");
+      }
+      this.$store.commit("setitema", this.$refs.aud.currentTime);
     },
     fn(index) {
       if (index == 1) {
@@ -307,7 +314,6 @@ export default {
       this.xyszt = true;
     },
   },
-
 };
 </script>
 
@@ -429,11 +435,11 @@ export default {
   margin-right: 10px;
   /* align-items: center; */
 }
-img{
+img {
   display: block;
   margin-right: 10px;
   height: 38px;
-  }
+}
 .jind {
   width: 490px;
   height: 24px;
@@ -491,7 +497,7 @@ img{
   background-image: url(~assets/img/精灵图9.png);
   height: 25px;
   margin: 0px 2px 0 0;
-background-position: -66px -248px;
+  background-position: -66px -248px;
 }
 .yyue {
   display: none;
@@ -534,9 +540,9 @@ background-position: -66px -248px;
   cursor: pointer;
   border: 1px solid #000;
 }
-.gqname{
+.gqname {
   display: inline-block;
   color: #9b9b9b;
-  margin-left:10px;
+  margin-left: 10px;
 }
 </style>

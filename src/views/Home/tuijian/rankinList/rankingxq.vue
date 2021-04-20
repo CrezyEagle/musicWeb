@@ -2,14 +2,14 @@
 <template>
   <div dropzone="" v-if="Object.keys(obj).length != 0">
     <!-- 首页榜单详情 -->
-    <div class="zj">
-      <img :src="obj.playlist.coverImgUrl" alt="" />
+    <div class="zj" @click="fn3(index)">
+    <div class="sz">  <img :src="obj.playlist.coverImgUrl" alt="" />
       <a href="JavaScript:;"></a>
       <div class="zuid">
         <h3  >{{ obj.playlist.name}}</h3>
         <div class="div1"></div>
         <div class="div2"></div>
-      </div>
+      </div></div>
     </div>
     <rangequ
       class="ran"
@@ -17,6 +17,7 @@
       :key="index"
       :obj="item"
       :ov="ov"
+      :id='ida'
       :index="index"
       @mouseout="fn2(index)"
       @mouseover="fn(index)"
@@ -43,6 +44,10 @@ export default {
       type: Number,
       ddefault: 0,
     },
+     index: {
+      type: Number,
+      ddefault: 0,
+    },
   },
   methods: {
     //鼠标移入移出触发事件
@@ -52,7 +57,13 @@ export default {
     fn2(index) {
       this.ov = -1;
     },
-   
+   fn3(index){
+  this.$store.commit('paihgb',index)
+  console.log(this.$store.state.paih);
+   this.$router.push({
+        path:'/home/paihang'
+      })
+}
   },
   mounted() {
     //组件挂载后获取到歌单的详情
@@ -75,9 +86,9 @@ export default {
   margin: 20px auto;
 }
 .zj img {
-  width: 40%;
+  width: 50%;
   cursor: pointer;
-  height: 40%;
+
   margin-right: 10px;
 }
 /* a{
@@ -135,5 +146,9 @@ h3:hover{
   width: 22px;
   height: 22px;
   float: left;
+}
+.sz{
+  display: flex;
+
 }
 </style>

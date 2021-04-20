@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Tuijian from 'views/Home/tuijian/index.vue'
 const Paihang=()=>import('views/Home/paihang/index.vue')
 const Home=()=>import('views/Home/index.vue')
-const Song=()=>import('views/Home/song.vue')
+const Song=()=>import('views/Home/song/song.vue')
 const routes=[{
   path:'',
   redirect:'/home'

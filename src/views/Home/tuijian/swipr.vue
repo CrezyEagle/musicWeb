@@ -1,7 +1,6 @@
 <template>
-<!-- 顶部轮播图 -->
+  <!-- 顶部轮播图 -->
   <div class="swiper-container" v-if="arr.length !== 0">
-
     <div class="swiper-wrapper" ref="swp">
       <!-- <div class="swiper-slide">
         <img src="~assets/img/nature-3.jpg" alt="" />
@@ -35,12 +34,12 @@ export default {
       sj: 0,
       nm: null,
       jis: 1,
-      aa:null
+      aa: null,
     };
   },
   deactivated() {
     console.log(12);
-    clearInterval(this.aa)
+    clearInterval(this.aa);
   },
   created() {
     this.network();
@@ -52,12 +51,10 @@ export default {
   },
   watch: {
     arr: function (a, b) {
-     
       setTimeout(() => {
         this.aaa();
-       this.aa= setInterval(() => {
+        this.aa = setInterval(() => {
           this.nm = this.$refs.swp.style.transform;
-    
         }, 200);
       }, 200);
     },
@@ -85,7 +82,7 @@ export default {
       console.log("lbt");
 
       new Swiper(".swiper-container", {
-        speed:800,
+        speed: 800,
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
@@ -111,7 +108,7 @@ export default {
 
 <style scoped>
 @import "~assets/css/swiper.min.css";
-.swiper-pagination{
+.swiper-pagination {
   bottom: 5px;
 }
 html,
@@ -122,7 +119,7 @@ body {
 body {
   background: #eee;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: .073568rem;
+  font-size: 0.073568rem;
   color: #000;
   margin: 0;
   padding: 0;
@@ -137,7 +134,7 @@ body {
 
   background-position: center center;
   /* background-image: url(~assets/img/nature-3.jpg); */
-   background-color: rgba(0, 0, 0, 0.158);
+  background-color: rgba(0, 0, 0, 0.158);
   background-size: 6000px;
   padding: 20px 0px;
   height: 300px;
@@ -153,7 +150,7 @@ img {
 .swiper-slide {
   text-align: center;
   cursor: pointer;
-  font-size: .094587rem;
+  font-size: 0.094587rem;
   background: #fff;
   /* height: 100%; */
   width: 780px;
@@ -178,5 +175,4 @@ img {
 .swiper-slide-duplicate-active {
   transform: scale(1);
 }
-
 </style> 

@@ -129,6 +129,7 @@ this.bf++
 .xq {
   padding: 30px 30px;
   box-sizing: border-box;
+    border-right: 1px solid #d5d5d5;
 }
 .timg{
   position: relative;

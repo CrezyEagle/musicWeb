@@ -20,10 +20,20 @@ const modelA = {
     //整个歌单,
     arr: [],
     //播放形式
-    xha: 0
+    xha: 0,
+    itema:'',  //正在播放的时间
+    jd:0
 
   },
   mutations: {
+    jdt(state,jda){
+     
+      state.jd=jda
+   
+    },
+    setitema: (state,sj) => {
+      state.itema=sj
+    },
     setxha: (state) => {
       state.xha++
     },
@@ -68,6 +78,20 @@ const modelA = {
         state.index = Math.floor(Math.random() * 10 + 1)
       }
     },
+        //点击下一首(随机)
+        xysgsj: (context) => {
+
+          context.commit('setsj')
+    
+    
+          url(context.state.arr[context.state.index].id).then(res => {
+            context.commit('seturln', res.data[0].url)
+            context.commit('setgqname', context.state.arr[context.state.index].name)
+            context.commit('setimga', context.state.arr[context.state.index].al.picUrl)
+            context.commit('setzj', context.state.arr[context.state.index].al.name)
+            context.commit('setid', context.state.arr[context.state.index].id)
+          })
+        },
     //上一首
     setsjj: (state) => {
       state.index -= Math.floor(Math.random() * 10 + 1)
@@ -84,23 +108,11 @@ const modelA = {
         context.commit('seturln', res.data[0].url)
       })
     },
-    //点击下一首(随机)
-    xysgsj: (context) => {
 
-      context.commit('setsj')
-
-
-      url(context.state.arr[context.state.index].id).then(res => {
-        context.commit('seturln', res.data[0].url)
-        context.commit('setgqname', context.state.arr[context.state.index].name)
-        context.commit('setimga', context.state.arr[context.state.index].al.picUrl)
-        context.commit('setzj', context.state.arr[context.state.index].al.name)
-        context.commit('setid', context.state.arr[context.state.index].id)
-      })
-    },
     //点击下一首
     xysg: (context) => {
-      if (context.state.index >= 99) {
+      console.log(context.state.arr.length);
+      if (context.state.index >= context.state.arr.length-1) {
         context.commit('setindex', 0)
       } else {
         context.commit('setindej')
