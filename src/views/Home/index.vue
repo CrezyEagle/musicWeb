@@ -38,5 +38,7 @@ methods:{
 
 <style scoped>
 
-
+.home{
+  padding-bottom: 56px;
+}
 </style>

@@ -2,7 +2,7 @@
 <div class="rang" v-if='Object.keys($props.obj).length!=0'>
   <!-- 首页歌单排行榜歌曲 -->
   <div class="px" :class="{acitv2:index==ov}">{{index+1}}</div>
-  <div class="gm" :class="{acitv:index==ov}">{{obj.al.name}}</div>
+  <div class="gm" :class="{acitv:index==ov}">{{obj.name}}</div>
   
   <div class="dp" v-show="index==ov" >
     <div class="bf" @click="fn2()"></div>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import gedan from 'network/home/gedan/index3.js'
+import gedanxq3 from "network/home/gedan/index3.js";
 import { gedanfz } from "network/home/gedan/goods.js";
 export default {
 data() {
@@ -30,7 +30,8 @@ methods:{
     //播放歌曲,将整个歌单上传
     this.$store.commit('setindex',this.index-1)
     console.log(this.index-1);
-  gedan(this.id).then(res=>{
+  gedanxq3(this.id).then(res=>{
+    console.log(res);
      this.gedanxq = new gedanfz(
             res.playlist.name,
             res.playlist.coverImgUrl,
@@ -43,35 +44,35 @@ methods:{
             res.playlist.id
           );
           this.$store.commit('setarr',this.gedanxq.tracks.splice(0,10))
+       
   this.$store.dispatch('xysg')
   })
   }
 },
 
-
 props:{
   obj:{
     type:Object,
-    ddefault(){
+    default(){
       return {}
     }
   },
   index:{
     type:Number,
-    ddefault(){
+    default(){
       return 0
     }
   },
   //歌单id
   id:{
     type:Number,
-    ddefault(){
+    default(){
       return 0
     }
   },
    ov:{
     type:Number,
-    ddefault(){
+    default(){
       return -1
     }
   }

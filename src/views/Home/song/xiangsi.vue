@@ -1,7 +1,7 @@
 <template>
   <div v-if="xiangsig.length != 0" class="xiang">
      <div class="bh">包含这首歌的歌单</div>
-    <div class="gq" v-for="(item, index) in xiangsig" :key="index">
+    <div class="gq" v-for="(item, index) in xiangsig" :key="index" @click="fn(index)">
       <div class="imga"><img :src="item.coverImgUrl" alt="" /></div>
       <div class="wzxq">
         <div class="name">{{item.name}}</div>
@@ -24,6 +24,16 @@ export default {
       return this.$store.state.a.id
     }
   },
+  methods:{
+    fn(index){
+        this.$router.push({
+        path:'/home/gedanxq',
+        query:{
+          id:this.xiangsig[index].id
+        }
+      })
+    }
+  },
   watch:{
     idg(){
        xiangsi(this.$store.state.a.id).then((res) => {
@@ -35,6 +45,7 @@ export default {
     xiangsi(this.$store.state.a.id).then((res) => {
       this.xiangsig = res.playlists;
     });
+
   },
 };
 </script>

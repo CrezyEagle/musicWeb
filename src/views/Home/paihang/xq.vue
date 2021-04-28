@@ -17,11 +17,7 @@
       </div>
     </div>
     <!-- 歌曲列表 -->
-    <div class="gqlb">
-      <div>歌曲列表</div>
-      <div>{{gedanxq.tracks.length}}首歌</div>
-      <div>播放：<span>{{gedanxq.playCount}}</span>次</div>
-    </div>
+   <gequlieb :ge='gedanxq.tracks.length' :bf='gedanxq.playCount'></gequlieb>
     <tablea :obj="gedanxq" :bf='bf'></tablea>
     <!-- 评论导航 -->
     <navbar name="评论">
@@ -39,10 +35,11 @@
 <script>
 import Navbar from 'components/content/navbar.vue';
 import Pinlun from 'components/content/pinlun/pinlun.vue';
-import tablea from './tablea.vue';
+import tablea from 'components/content/gequlieb/tablea.vue';
 import Bftb from 'components/content/bftb.vue';
+import Gequlieb from 'components/content/gequlieb/gequlieb.vue';
 export default {
-  components: { tablea, Navbar, Pinlun, Bftb },
+  components: { tablea, Navbar, Pinlun, Bftb, Gequlieb },
   data() {
     return {
       bf:0
@@ -76,7 +73,7 @@ this.bf++
   props: {
     gedanxq: {
       type: Object,
-      ddefault() {
+      default() {
         return {};
       },
     },
@@ -88,36 +85,7 @@ this.bf++
 .pla{
   width: 100%;
 }
-.gqlb{
-  margin-top: 40px;
-  display: flex;
-  padding-bottom: 10px;
-  justify-content: space-between;
-  border-bottom: 2px solid #C20C0C;
-  align-items: center;
-  width: 100%;
-}
-.gqlb div:nth-child(1){
-  font-size: .089333rem;
-}
-.gqlb div:nth-child(2){
-  flex: 1;
-  margin-left: 20px;
-  font-size: .058854rem;
-  color: #666666;
-}
-.gqlb div:nth-child(3){
 
-  margin-left: 20px;
-  font-size: .066211rem;
-  color: #666666;
-}
-.gqlb div:nth-child(3) span{
- 
-
-  font-size: 0.89em;
-  color: #C20C0C;
-}
 .bb {
   width: 13px;
   height: 13px;

@@ -1,4 +1,5 @@
 <template>
+<!-- 歌曲歌词页面-->
   <div class="songq">
     <div class="left">
       <div class="xqaa">
@@ -23,7 +24,7 @@
             <div class="sbl" v-if="texts2.length == 0" @click="fn()">
               歌曲获取失败了(点击重新获取歌曲)
             </div>
-            <div class="sw" :style="{ top: -isShow * 20 + 'px' }" v-else>
+            <div class="sw" :style="{ top: -isShow * 17 + 'px' }" v-else>
               <p
                 v-for="(item, index) in texts2"
                 :key="index"
@@ -101,9 +102,21 @@ export default {
     jdt() {
       return this.$store.state.a.jd;
     },
+  
+
   },
 
   methods: {
+      pd(a){
+       if(this.texts2.length==0) return
+ for(var i=0;i<this.texts2.length;i++){
+    if(a>=this.texts2[i].sj&&a<this.texts2[i+1].sj){
+      this.isShow=i
+      return
+    }
+
+  }
+    },
     //歌词格式化
     parsea(texts) {
       let lines = texts.split("\n");
@@ -129,7 +142,6 @@ export default {
         let value = item.replace(zze, "");
 
         for (let item1 of time) {
-          console.log(2);
           let t = item1.slice(1, -1).split(":"); //取出时间转换为数组
           if (value != "") {
             let obj = {};
@@ -181,16 +193,18 @@ export default {
         });
       
     },
+
     sj(a, b) {
       if (this.texts2.length == 0 || this.isShow == this.texts2.length) return;
       if (this.texts2[this.isShow].sj <= this.$store.state.a.itema) {
         this.isShow = this.isShow + 1;
       }
     },
+    //判断有没有改变进度条
     jdt(a,b){
       console.log(a);
-      console.log(Math.floor(this.texts2.length*parseFloat(a,2)/100));
-      this.isShow=Math.floor(this.texts2.length*parseFloat(a,2)/100)-4
+      this.pd(a)
+ 
     }
   },
   activated() {
@@ -207,7 +221,7 @@ export default {
     geci(this.id).then((res) => {
       this.texts = res.lrc.lyric;
       this.texts2 = this.parsea(this.texts);
-      console.log(this.texts2);
+
     });
   },
 };

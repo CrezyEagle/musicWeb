@@ -3,6 +3,7 @@
       <div class="rm" @click="fn()">{{name}}</div>
       <div class="fle">
         <span v-for="(item,index) in arr" :key="index" class="sp">{{item}}</span>
+        <slot name='anniu'><div></div></slot>
       </div>
       <div class="zw"></div>
       <slot name="gduo"><div class="gd" @click="fn()">更多</div></slot>
@@ -62,6 +63,7 @@ props:{
   background: url(~assets/img/精灵图1.png) no-repeat;
       background-position: -233px -156px;
 }
+
 .sp{
   padding-right: 20px;
   padding-left: 20px;

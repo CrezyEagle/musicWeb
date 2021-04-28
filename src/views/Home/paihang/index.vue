@@ -188,7 +188,7 @@ export default {
   props: {
     dbaa: {
       typeof: Boolean,
-      ddefault: false,
+      default: false,
     },
   },
 };

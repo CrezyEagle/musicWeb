@@ -26,7 +26,7 @@ const modelA = {
 
   },
   mutations: {
-    jdt(state,jda){
+    setjdt(state,jda){
      
       state.jd=jda
    
@@ -87,6 +87,7 @@ const modelA = {
           url(context.state.arr[context.state.index].id).then(res => {
             context.commit('seturln', res.data[0].url)
             context.commit('setgqname', context.state.arr[context.state.index].name)
+            context.commit('setname', context.state.arr[context.state.index].ar[0].name)
             context.commit('setimga', context.state.arr[context.state.index].al.picUrl)
             context.commit('setzj', context.state.arr[context.state.index].al.name)
             context.commit('setid', context.state.arr[context.state.index].id)
@@ -121,6 +122,7 @@ const modelA = {
       url(context.state.arr[context.state.index].id).then(res => {
         context.commit('seturln', res.data[0].url)
         context.commit('setgqname', context.state.arr[context.state.index].name)
+        context.commit('setname', context.state.arr[context.state.index].ar[0].name)
         context.commit('setimga', context.state.arr[context.state.index].al.picUrl)
         context.commit('setzj', context.state.arr[context.state.index].al.name)
         context.commit('setid', context.state.arr[context.state.index].id)
@@ -129,7 +131,7 @@ const modelA = {
     //点击上一首
     sysg: (context) => {
       if (context.state.index <= 0) {
-        context.commit('setindex', 99)
+        context.commit('setindex',context.state.arr.length-1 )
       } else {
         context.commit('setindea')
       }
@@ -138,6 +140,7 @@ const modelA = {
         context.commit('setgqname', context.state.arr[context.state.index].name)
         context.commit('setimga', context.state.arr[context.state.index].al.picUrl)
         context.commit('setzj', context.state.arr[context.state.index].al.name)
+        context.commit('setname', context.state.arr[context.state.index].ar[0].name)
         context.commit('setid', context.state.arr[context.state.index].id)
       })
     },
@@ -149,6 +152,7 @@ const modelA = {
         context.commit('setgqname', context.state.arr[context.state.index].name)
         context.commit('setimga', context.state.arr[context.state.index].al.picUrl)
         context.commit('setzj', context.state.arr[context.state.index].al.name)
+        context.commit('setname', context.state.arr[context.state.index].ar[0].name)
         context.commit('setid', context.state.arr[context.state.index].id)
       })
     }

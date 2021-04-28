@@ -13,7 +13,7 @@
     </div>
     <rangequ
       class="ran"
-      v-for="(item, index) in obj.playlist.tracks.slice(0, 10)"
+      v-for="(item, index) in obj1"
       :key="index"
       :obj="item"
       :ov="ov"
@@ -27,12 +27,13 @@
 </template>
 
 <script>
-import gedanxq from "network/home/gedan/index3.js";
+import gedanxq3 from "network/home/gedan/index3.js";
 import rangequ from "./rangequ.vue";
 export default {
   data() {
     return {
       obj: {},
+      obj1:{},
       ov: -1,
     };
   },
@@ -42,11 +43,11 @@ export default {
     //得到歌单的id
     ida: {
       type: Number,
-      ddefault: 0,
+      default: 0,
     },
      index: {
       type: Number,
-      ddefault: 0,
+      default: 0,
     },
   },
   methods: {
@@ -67,9 +68,11 @@ export default {
   },
   mounted() {
     //组件挂载后获取到歌单的详情
-    gedanxq(this.ida)
+    gedanxq3(this.ida)
       .then((res) => {
-        this.obj = res;
+        this.obj=res
+        this.obj1 = res.playlist.tracks.slice(0, 10);
+    
       })
       .catch((err) => {
         console.log(err);

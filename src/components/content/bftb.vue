@@ -7,14 +7,16 @@
       </div></span
     >
     <span></span>
-    <slot name="sc"><span><div>收藏</div></span></slot>
+    <slot name="sc"><span><div>{{sc}}</div></span></slot>
     <span
       ><div>{{fxa}}</div></span
     >
     <span><div>下载</div></span>
-    <span
+   <slot name="pl">
+      <span
       ><div>{{ pla }}</div></span
     >
+   </slot>
   </div>
 </template>
 
@@ -23,12 +25,16 @@ export default {
    props: {
     fx: {
       type: Number,
-      ddefault:0
+      default:0
     },
     pl: {
       type: Number,
-      ddefault:0
+      default:0
     },
+    sc:{
+      type:String,
+      default:'收藏'
+    }
   },
   computed:{
     fxa(){
@@ -93,7 +99,7 @@ export default {
   margin-right: 10px;
 }
 .tb span:nth-child(3) > div {
-  background-position: 0 -1225px;
+      background-position: 0 -977px;
   background-image: url(~assets/img/精灵图5.png);
   padding-right: 2px;
   padding-left: 28px;

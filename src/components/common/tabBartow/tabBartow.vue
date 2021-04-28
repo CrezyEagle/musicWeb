@@ -34,7 +34,7 @@ export default {
         },
         {
           name: "主播电台",
-          routera: "/home/zhutai",
+          routera: "/home/diantai",
         },
         {
           name: "歌手",
@@ -59,8 +59,7 @@ export default {
       this.route
       if(this.js!=2){
         this.isShow=-1
-        console.log(-2);
-      }
+              }
     }
   },
   computed: {
@@ -69,11 +68,14 @@ export default {
     },
     route() {
       this.arr.forEach((element, index) => {
-        if (element.routera == this.$route.href) {
+        if (element.routera.substring(0, 9) == this.$route.href.substring(0, 9)) {
         this.js=2
 
          this.isShow= index;
         }
+        // if('/home/diantai/fl' == this.$route.href){
+        //   this.isShow=3
+        // }
       });
     },
   },

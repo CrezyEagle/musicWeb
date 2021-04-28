@@ -236,12 +236,10 @@ export default {
       this.$refs.jind.onmousemove = null;
     },
     mousedown(e) {
-     
       this.bf = true;
       this.$refs.aud.pause();
-       
+
       document.onmousemove = (e) => {
-            
         //拖动小圆点，进度条滑动
         this.progress1 =
           Number(
@@ -250,19 +248,20 @@ export default {
             ? 100 + "%"
             : ((e.pageX - this.$refs.jind.offsetLeft - this.jl) / 490) * 100 +
               "%";
-        //滑动的同时修改歌曲进度
-        this.$refs.aud.currentTime =
-          Number((e.pageX - this.$refs.jind.offsetLeft - this.jl) / 490) *
-          this.$refs.aud.duration;
+
         //鼠标弹起
         this.$refs.jind.onmouseup = (e) => {
-      this.$store.commit("jdt",this.progress1);
+          //鼠标弹起的同时修改歌曲进度
+          this.$refs.aud.currentTime =
+            Number((e.pageX - this.$refs.jind.offsetLeft - this.jl) / 490) *
+            this.$refs.aud.duration;
+          this.$store.commit("setjdt", this.$refs.aud.currentTime );
           document.onmousemove = null;
           this.bf = false;
           this.$refs.aud.play();
         };
         document.onmouseup = (e) => {
-           
+          document.onmousemove = null;
           document.onmousemove = null;
           this.bf = false;
           this.$refs.aud.play();
@@ -278,7 +277,7 @@ export default {
     timeupdate() {
       //获取当前进度时间
       this.time2 = this.sjgsh(this.$refs.aud.currentTime);
-      
+
       this.progress1 =
         (this.$refs.aud.currentTime / this.$refs.aud.duration) * 100 + "%";
       if (parseFloat(this.progress1.substr(0, 4)) >= 99.6 && this.xha == 2) {
@@ -318,6 +317,9 @@ export default {
 </script>
 
 <style scoped>
+.xq img{
+  cursor: pointer;
+}
 .sj1 {
   color: #a1a1a1;
 }

@@ -15,7 +15,7 @@ export default {
   props: {
     obj: {
       type: Object,
-      ddefault() {
+      default() {
         return {};
       },
     },
@@ -27,6 +27,7 @@ export default {
 .rangl {
   padding: 10px 20px;
   display: flex;
+  cursor: pointer;
     box-sizing: border-box;
   justify-content: space-between;
   width: 100%;

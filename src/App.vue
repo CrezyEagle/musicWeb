@@ -22,6 +22,7 @@ export default {
 </script>
 
 <style scoped>
+
 @import "assets/css/base.css";
 .he {
   background-color: #f5f5f5;
