@@ -23,7 +23,7 @@ npm run serve
 ### 首页
 | 首页 |  |
 | --- | --- | 
-|![加载失败](./img/%E9%A6%96%E9%A1%B5%E6%88%AA%E5%9B%BE1.png "首页") |  ![加载失败](./img/%E9%A6%96%E9%A1%B5%E6%88%AA%E5%9B%BE2.png "首页")|
+|![加载失败](https://github.com/CrezyEagle/musicWeb/blob/master/img/%E9%A6%96%E9%A1%B5%E6%88%AA%E5%9B%BE1.png "首页") |  ![加载失败](./img/%E9%A6%96%E9%A1%B5%E6%88%AA%E5%9B%BE2.png "首页")|
 | ![加载失败](./img/%E9%A6%96%E9%A1%B53.png "首页") | ![加载失败](./img/%E9%A6%96%E9%A1%B5%E5%8A%A8%E6%80%81%E5%9B%BE.gif "首页") |  
 ### 排行  
 | 排行 |  |
