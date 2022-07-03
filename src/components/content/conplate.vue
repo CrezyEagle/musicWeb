@@ -27,7 +27,7 @@ export default {
 
 .conp{
   
-  margin: 20px 10px;
+  margin: 20px 14px;
         width: 118px;
     
 }

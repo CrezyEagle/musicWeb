@@ -162,7 +162,7 @@ export default {
   flex-wrap: wrap;
   display: flex;
   margin-top: 20px;
-  justify-content: center;
+
 }
 
 .rm {
@@ -176,6 +176,7 @@ export default {
 }
 .xq {
   padding: 40px;
+
 }
 .top {
   display: flex;

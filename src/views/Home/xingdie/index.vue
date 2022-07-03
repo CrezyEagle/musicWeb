@@ -59,13 +59,13 @@ methods:{
        weekData()
         .then((res) => {
           this.arr = res.weekData;
-          this.arr3=this.arr.splice(0,10)
+          this.arr3=this.arr.splice(0,16)
         })
       .catch(err=>{
           this.cc1=true
         })
         xind('ALL').then(res=>{
-          this.arr2=res.albums.splice(0,25)
+          this.arr2=res.albums.splice(0,28)
         }).catch(err=>{
           this.cc=true
         })
@@ -102,13 +102,37 @@ methods:{
 </script>
 
 <style scoped>
+@media (min-width: 1901px){
+.xind {
+    width: 878px;
+}
+}
+@media (max-width: 1900px){
+.xind {
+    width: 878px;
+}
+}
+
+/* @media (max-width: 1720px){
+  .xind {
+    width: 738px;
+}
+} */
+
+@media (max-width: 1520px){
+  .xind {
+    width: 670px;
+}
+}
+
+
 .cc{
   font-size: .104167rem;
   color: #999;
   text-align: center;
 }
 .xind{
-  width: 56%;
+
   padding: 30px;
   background-color: #fff;
   margin: 0px auto;
@@ -119,7 +143,6 @@ methods:{
   margin-top: 20px;
 flex-wrap: wrap;
 margin-bottom: 20px;
-justify-content: space-around;
 }
 .xd{
   margin: 10px 50px;

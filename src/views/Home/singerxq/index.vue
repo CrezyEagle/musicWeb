@@ -37,6 +37,7 @@
         ></conplate>
       </div>
       <div v-if="isShow == 2" class="gq">
+      <!-- mv -->
         <div v-for="(item, index) in mvs" :key="index" class="mv">
           <div class="mvimg">
             <img :src="item.imgurl" alt="" />
@@ -292,7 +293,7 @@ export default {
 }
 .mv {
   width: 137px;
-  margin: 10px 10px;
+  margin: 10px 23px;
   
 }
 .mvimg {
@@ -361,7 +362,7 @@ export default {
   margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 .top {
   display: flex;
@@ -389,7 +390,7 @@ export default {
   background-color: #fff;
 }
 .sin {
-  width: 56%;
+  width: 1065px;
   margin: 0px auto;
   background-color: #fff;
   box-sizing: border-box;

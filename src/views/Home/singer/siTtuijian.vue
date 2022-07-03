@@ -98,7 +98,7 @@ tuij().then(res=>{
 .ges{
   flex-wrap: wrap;
   display: flex;
-  justify-content: space-around;
+
 }
 .tuija{
   width: 100%;

@@ -49,7 +49,7 @@ export default {
   width: 81.5%;
 }
 .sing {
-  width: 56%;
+  width: 1057px;
   background-color: #ffff;
   margin: 0 auto;
   display: flex;
