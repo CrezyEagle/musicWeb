@@ -1,44 +1,115 @@
 <template>
-<div class="home"  @mousewheel="wda()" @scroll="wda()">
+  <div class="home"  @scroll="wda()">
+    <tab-bartow></tab-bartow>
 
-     <tab-bartow></tab-bartow>
-
-<router-view v-slot="{ Component }" :dbaa="dbaa">
-  <keep-alive >
-    <component :is="Component" />
-  </keep-alive>
-</router-view>
-
-  </div>  
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
+    <!-- 回到顶部 -->
+    <div v-if="xs" class="hddb" v-show="dbaa" @click="fnc()"></div>
+ 
+  </div>
 </template>
 
 <script>
-import TabBartow from 'components/common/tabBartow/tabBartow.vue'
+import TabBartow from "components/common/tabBartow/tabBartow.vue";
+
 
 export default {
   data() {
     return {
-     dbaa:null
-    }
+      dbaa: true,
+      xs: true,
+    };
   },
-components:{
-  TabBartow
-},
-methods:{
-     wda(){
+  components: {
+    TabBartow,
+  
 
-      this.dbaa= window.pageYOffset>700
-    window.onscroll=()=>{
-      this.dbaa= window.pageYOffset>700
-    }
+  },
+  computed: {
+    topa() {
+      return this.$store.state.top;
     },
-}
-}
+   
+  },
+  watch: {
+    topa() {
+      // console.log(this.$store.state.top);
+      this.xs = this.$store.state.top;
+    },
+   
+  },
+  methods: {
+    db(obj, distance) {
+      animation(obj, distance);
+      //动画缓动封装
+      //obj要添加动效的元素，distancce移动距离的终点，chenge元素移动终点后的效果函数
+      function animation(obj, distance, change) {
+        //排他思想，为了避免多次调用定时器
+        clearTimeout(obj.timer);
+        //将定时器以对象赋值的方式添加给调用元素
+        obj.timer = setInterval(function move() {
+          //缓动特效公式
+          var step = (distance - window.pageYOffset) / 10;
+          //取整
+          step = step > 0 ? Math.ceil(step) : Math.floor(step);
+          //判断是否达到终点
+          if (window.pageYOffset == distance) {
+            //如果到达终点即结束定时器
+            clearTimeout(obj.timer);
+            //判断用户是否要添加终点效果
+            if (change) {
+              //达到终点后要执行的效果，效果在调用者参数里以回调函数执行
+              change();
+            }
+          } else {
+            // obj.style.left = obj.offsetLeft + step + 'px';
+            window.scroll(0, window.pageYOffset + step);
+          }
+        }, 20);
+      }
+    },
+    wda() {
+      this.dbaa = window.pageYOffset > 600;
+      window.onscroll = () => {
+        this.dbaa = window.pageYOffset > 600;
+      };
+    },
+    fnc() {
+   
+      this.db(window, 0);
+      
+    },
+  },
+};
 </script>
 
 <style scoped>
+.home {
 
-.home{
-  padding-bottom: 56px;
+  position: relative;
+}
+.hddb {
+  position: fixed;
+  left: 51%;
+  margin-left: 2.890173rem;
+  bottom: 0.630583rem;
+  cursor: pointer;
+  width: 49px;
+  height: 44px;
+  z-index: 10;
+  background-position: -265px -47px;
+  background-image: url(~assets/img/精灵提8.png);
+}
+.bq{
+  position: fixed;
+  transform: translateX(-50%);
+ margin-top: -200px;
+  left: 50%;
+  top: 50%;
+  z-index: 20;
 }
 </style>

@@ -28,6 +28,7 @@ methods:{
 created(){
   //获取全部歌单，截取前3个歌单
   rankingList().then(res=>{
+    if(res==undefined) return
 this.arr=res.list
 this.arr1.push(this.arr[0])
 this.arr1.push(this.arr[1])

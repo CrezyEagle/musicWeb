@@ -1,5 +1,5 @@
 <template>
-  <div class="youx">
+  <div class="youx" @click="fn()">
     <img :src="obj.picUrl" alt="">
     <div class="name">{{obj.name}}</div>
     <div class="name2">{{obj.rcmdtext}}</div>
@@ -14,6 +14,16 @@ props:{
     default(){
       return {}
     }
+  }
+},
+methods:{
+  fn(){
+     this.$router.push({
+        path:"/home/diantaixq",
+        query:{
+          id:this.obj.id
+        }
+      })
   }
 }
 }

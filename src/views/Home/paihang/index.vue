@@ -30,9 +30,10 @@
 <script>
 import rankingList from "network/home/rankingList/rankingList.js";
 import gedanxq3 from "network/home/gedan/index3.js";
+import yhgedanxq from "network/home/gedan/index4.js";
 import { gedanfz } from "network/home/gedan/goods.js";
 import rangLge from "./rangLge.vue";
-import animation from "components/common/db.js";
+
 import Xq from "./xq.vue";
 export default {
   components: { rangLge, Xq },
@@ -53,15 +54,21 @@ export default {
       this.arr1 = this.arr.slice(0, 4);
       this.arr2 = this.arr.slice(4, 30);
     },
-    rout() {
-      this.isShow = this.$store.state.paih;
+    lpg(){
+       this.isShow = this.$store.state.paih;
       this.isShow2=-1
       rankingList().then((res) => {
         //请求排行榜所有歌单
         this.arr = res.list;
         var nm = this.arr[this.isShow].updateFrequency;
         //封装歌单详情需要的值
+        
+             if(this.$store.state.lpa!=1&&this.$store.state.ncym!=true){
+               this.dlqq(this.arr[this.isShow].id,nm)
+               return
+             }
         gedanxq3(this.arr[this.isShow].id).then((res) => {
+
           this.gedanxq = new gedanfz(
             res.playlist.name,
             res.playlist.coverImgUrl,
@@ -71,7 +78,37 @@ export default {
             nm,
             res.playlist.tracks,
             res.playlist.playCount,
-            res.playlist.id
+            res.playlist.id,
+            res.playlist.subscribedCount
+          );
+        });
+      });
+    },
+    rout() {
+      this.isShow = this.$store.state.paih;
+      this.isShow2=-1
+      rankingList().then((res) => {
+        //请求排行榜所有歌单
+        this.arr = res.list;
+        var nm = this.arr[this.isShow].updateFrequency;
+        //封装歌单详情需要的值
+             if(this.$store.state.lpa!=1&&this.$store.state.ncym!=true){
+               this.dlqq(this.arr[this.isShow].id,nm)
+               return
+             }
+        gedanxq3(this.arr[this.isShow].id).then((res) => {
+
+          this.gedanxq = new gedanfz(
+            res.playlist.name,
+            res.playlist.coverImgUrl,
+            res.playlist.commentCount,
+            res.playlist.shareCount,
+            res.playlist.updateTime,
+            nm,
+            res.playlist.tracks,
+            res.playlist.playCount,
+            res.playlist.id,
+            res.playlist.subscribedCount
           );
         });
       });
@@ -89,6 +126,10 @@ export default {
       this.arr = res.list;
       var nm = this.arr[this.isShow].updateFrequency;
       //封装歌单详情需要的值
+        if(this.$store.state.lpa!=1&&this.$store.state.ncym!=true){
+               this.dlqq(this.arr[this.isShow].id,nm)
+               return
+             }
       gedanxq3(this.arr[this.isShow].id).then((res) => {
         this.gedanxq = new gedanfz(
           res.playlist.name,
@@ -99,7 +140,9 @@ export default {
           nm,
           res.playlist.tracks,
           res.playlist.playCount,
-          res.playlist.id
+          res.playlist.id,
+          res.playlist.subscribedCount,
+         
         );
       });
     });
@@ -111,14 +154,43 @@ export default {
     rout() {
       return this.$store.state.paih;
     },
+    lpg(){
+      return this.$store.state.lpa
+    }
   },
   methods: {
+    dlqq(id,nm){
+      let thi=this
+ 
+        yhgedanxq(id,this.$store.state.lpa).then(res=>{
+          // console.log(res);
+           thi.gedanxq = new gedanfz(
+            res.playlist.name,
+            res.playlist.coverImgUrl,
+            res.playlist.commentCount,
+            res.playlist.shareCount,
+            res.playlist.updateTime,
+            nm,
+            res.playlist.tracks,
+            res.playlist.playCount,
+            res.playlist.id,
+            res.playlist.subscribedCount,
+             res.playlist.subscribed
+          );
+        })
+      
+    },
     fn(index) {
       this.isShow = index;
       this.isShow2 = -1;
       this.db(window, 0);
       var nm = this.arr1[index].updateFrequency;
+        if(this.$store.state.lpa!=1&&this.$store.state.ncym!=true){
+               this.dlqq(this.arr[this.isShow].id,nm)
+               return
+             }
       gedanxq3(this.arr1[index].id).then((res) => {
+        // console.log(res);
         this.gedanxq = new gedanfz(
           res.playlist.name,
           res.playlist.coverImgUrl,
@@ -128,7 +200,8 @@ export default {
           nm,
           res.playlist.tracks,
           res.playlist.playCount,
-          res.playlist.id
+          res.playlist.id,
+          res.playlist.subscribedCount
         );
       });
     },
@@ -176,14 +249,14 @@ export default {
           nm,
           res.playlist.tracks,
           res.playlist.playCount,
-          res.playlist.id
+          
+          res.playlist.id,
+           res.playlist.subscribedCount,
         );
       });
     },
 
-    fnc() {
-      animation(window, 0,);
-    },
+    
   },
   props: {
     dbaa: {
@@ -195,16 +268,7 @@ export default {
 </script>
 
 <style scoped>
-.hddb {
-  position: fixed;
-  left: 50%;
-  margin-left: 2.890173rem;
-  bottom: 0.630583rem;
-  width: 49px;
-  height: 44px;
-  background-position: -265px -47px;
-  background-image: url(~assets/img/精灵提8.png);
-}
+
 .paihang {
   width: 56%;
   background-color: #ffffff;

@@ -1,5 +1,5 @@
 <template>
-<!-- 歌曲歌词页面-->
+  <!-- 歌曲歌词页面-->
   <div class="songq">
     <div class="left">
       <div class="xqaa">
@@ -19,10 +19,20 @@
             所属专辑：<span>{{ zj }}</span>
           </div>
           <!-- 播放组件 -->
-          <bftb :pl="sum"></bftb>
+          <bftb lx="5" :id="id" :fxname="gqname" @sca="sca" :pl="sum"></bftb>
           <div class="gca">
-            <div class="sbl" v-if="texts2.length == 0" @click="fn()">
+            <div
+              class="sbl"
+              v-if="texts2.length == 0 && texts3.length == 0"
+              @click="fn()"
+            >
               歌曲获取失败了(点击重新获取歌曲)
+            </div>
+            <div
+              class="sbl"
+              v-else-if="texts2.length == 0 && texts3.length != 0"
+            >
+              纯音乐，无歌词
             </div>
             <div class="sw" :style="{ top: -isShow * 17 + 'px' }" v-else>
               <p
@@ -56,6 +66,7 @@
     <div class="rita">
       <xiangsi></xiangsi>
       <baoh></baoh>
+      <xzkh></xzkh>
     </div>
   </div>
 </template>
@@ -66,8 +77,10 @@ import yonghu from "components/content/pinlun/yonghu.vue";
 import Navbar from "components/content/navbar.vue";
 import { gqpinlun } from "network/home/gedan/pinlun.js";
 import geci from "network/gequ/geci.js";
-import Xiangsi from './xiangsi.vue';
-import Baoh from './baoh.vue';
+import Xiangsi from "./xiangsi.vue";
+import { xih } from "network/home/song/index.js";
+import Baoh from "./baoh.vue";
+import Xzkh from "components/common/xz/xzkh.vue";
 
 export default {
   components: {
@@ -76,6 +89,7 @@ export default {
     Navbar,
     Xiangsi,
     Baoh,
+    Xzkh,
   },
   data() {
     return {
@@ -88,6 +102,7 @@ export default {
       sum: 0,
       texts: "", //歌词
       texts2: [],
+      texts3: ["1", "2"],
       isShow: 0,
     };
   },
@@ -102,20 +117,38 @@ export default {
     jdt() {
       return this.$store.state.a.jd;
     },
-  
-
+    lpa() {
+      return this.$store.state.lpa;
+    },
   },
 
   methods: {
-      pd(a){
-       if(this.texts2.length==0) return
- for(var i=0;i<this.texts2.length;i++){
-    if(a>=this.texts2[i].sj&&a<this.texts2[i+1].sj){
-      this.isShow=i
-      return
-    }
+    sca(a) {
+      // console.log(1);
+      xih(this.id, true, this.$store.state.lpa).then((res) => {
+        // console.log(res);
+        this.$store.commit("setsccgaa");
+      });
+    },
+    //手动改变进度条时
+    pd(a) {
+      a = Number(a);
+      // console.log('进度条');
+      if (this.texts2.length == 0) return;
 
-  }
+      for (let i = 0; i < this.texts2.length; i++) {
+        //  console.log('开始循环');
+        // if (a >= this.texts2.length) return;
+        // console.log('循环');
+        if (
+          a >= Number(this.texts2[i].sj) &&
+          a < Number(this.texts2[i + 2].sj)
+        ) {
+          //  console.log(1);
+          this.isShow = i;
+          return;
+        }
+      }
     },
     //歌词格式化
     parsea(texts) {
@@ -171,7 +204,16 @@ export default {
     },
   },
   watch: {
+    // lpa(a,b){
+    //   if(a==1)return
+    //     gequ(this.id,this.$store.state.lpa).then(res=>{
+    //       console.log(res);
+    //     })
+    // },
     ba() {
+      this.texts2 = [];
+      this.texts3 = ["1", "2"];
+      this.texts = "";
       this.imega = this.$store.state.a.imega;
       this.name = this.$store.state.a.name;
       this.id = this.$store.state.a.id;
@@ -184,28 +226,29 @@ export default {
       //请求歌词
       geci(this.id)
         .then((res) => {
+          if (res.nolyric) return;
           this.texts = res.lrc.lyric;
           this.texts2 = this.parsea(this.texts);
           this.isShow = 0;
         })
         .catch((err) => {
-          this.texts2 = [];
+          this.texts3 = [];
+          console.log(err);
         });
-      
     },
-
+    //当音乐播放时
     sj(a, b) {
+      //当计数的值等于总歌词数量时
       if (this.texts2.length == 0 || this.isShow == this.texts2.length) return;
       if (this.texts2[this.isShow].sj <= this.$store.state.a.itema) {
         this.isShow = this.isShow + 1;
       }
     },
     //判断有没有改变进度条
-    jdt(a,b){
-      console.log(a);
-      this.pd(a)
- 
-    }
+    jdt(a, b) {
+      // console.log(a);
+      this.pd(a);
+    },
   },
   activated() {
     this.imega = this.$store.state.a.imega;
@@ -218,18 +261,22 @@ export default {
       this.sum = this.pl.hotComments.length;
     });
     //请求歌词
-    geci(this.id).then((res) => {
-      this.texts = res.lrc.lyric;
-      this.texts2 = this.parsea(this.texts);
-
-    });
+    geci(this.id)
+      .then((res) => {
+        if (res.nolyric) return;
+        this.texts = res.lrc.lyric;
+        this.texts2 = this.parsea(this.texts);
+      })
+      .catch((err) => {
+        this.texts3 = [];
+        console.log(err);
+      });
   },
 };
 </script>
 
 <style scoped>
-
-.rita{
+.rita {
   width: 25%;
   height: 1000px;
   border: 1px solid #d5d5d5;
@@ -268,7 +315,7 @@ img {
   width: 56%;
   border-left: 1px solid #d5d5d5;
   background-color: #ffffff;
-display: flex;
+  display: flex;
   margin: 0px auto;
   margin-bottom: 53px;
 }
@@ -312,7 +359,7 @@ display: flex;
 
 .sw {
   width: 100%;
-
+  margin: 20px;
   position: absolute;
   font-size: 0.067708rem;
 }
@@ -329,7 +376,7 @@ display: flex;
 }
 .gca {
   position: relative;
-  height: 600px;
+  height: 800px;
   overflow: hidden;
   margin-top: 40px;
 }

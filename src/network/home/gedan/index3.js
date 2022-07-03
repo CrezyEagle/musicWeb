@@ -2,7 +2,7 @@
 import {request} from 'network/request.js'
 export default function gdanxq2(congf){
   return request({
-    url: '/playlist/detail/dynamic?id='+congf,
+    url: '/playlist/detail?id='+congf,
     method: 'GET',
     withCredentials: true
   })

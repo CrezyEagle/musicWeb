@@ -7,7 +7,16 @@ export  function pinlun(congf){
     withCredentials: true
   })
 }
+export  function zjpl(congf){
+  return request({
+    url: '/comment/album?id='+congf,
+    method: 'GET',
+    withCredentials: true
+  })
+}
+
 export  function gqpinlun(congf){
+  if(congf==undefined) return
   return request({
     url: '/comment/music?id='+congf+'&limit=1',
     method: 'GET',

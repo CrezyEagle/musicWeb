@@ -73,18 +73,16 @@ export default {
 
          this.isShow= index;
         }
-        // if('/home/diantai/fl' == this.$route.href){
-        //   this.isShow=3
-        // }
       });
     },
   },
 
   methods: {
     fn(index, rot) {
-      this.$router.push({
-        path: rot,
-      });
+      // this.$router.push({
+      //   path: rot,
+      // });
+      console.log('跳转');
       this.isShow = index;
       this.$router.push(this.arr[index].routera);
     },

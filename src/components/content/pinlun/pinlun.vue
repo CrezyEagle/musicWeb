@@ -25,17 +25,32 @@ export default {
       typeof: Number,
       default: 0,
     },
+    //刷新评论
+      sxpl: {
+      typeof: Number,
+      default: 0,
+    },
   },
   watch: {
     //监听id有没有更新，前面点击了别的歌单id就会更新
     id() {
+      if(this.id==undefined) return
       //更新后重新请求评论
       pinlun(this.id).then((res) => {
         this.pl = res;
       });
     },
+    sxpl(){
+      console.log(2);
+         if(this.id==undefined) return
+      //更新后重新请求评论
+      pinlun(this.id).then((res) => {
+        this.pl = res;
+      });
+    }
   },
   mounted() {
+    if(this.id==undefined) return
     pinlun(this.id).then((res) => {
       this.pl = res;
     });

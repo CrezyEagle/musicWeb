@@ -2,7 +2,7 @@
    <div class="tob">
       <div class="rm" @click="fn()">{{name}}</div>
       <div class="fle">
-        <span v-for="(item,index) in arr" :key="index" class="sp">{{item}}</span>
+        <span v-for="(item,index) in arr" :key="index" class="sp" @click="fna(item)">{{item}}</span>
         <slot name='anniu'><div></div></slot>
       </div>
       <div class="zw"></div>
@@ -19,6 +19,10 @@ export default {
           path:this.routera
         })
       }
+    },
+    fna(name){
+      this.$emit('namea',name)
+      console.log(name);
     }
   },
 props:{
@@ -68,8 +72,12 @@ props:{
   padding-right: 20px;
   padding-left: 20px;
   color: #adadad;
+  cursor: pointer;
   font-size: .067262rem;
   border-right: 2px solid #acabab;
+}
+.sp:hover{
+  text-decoration: underline;
 }
 .sp:nth-child(5){
   border: 0;
@@ -83,6 +91,9 @@ props:{
   background-position: 33px -237px;
   font-size: .066211rem;
   cursor: pointer;
+}
+.gd:hover{
+  text-decoration: underline;
 }
 
 </style>

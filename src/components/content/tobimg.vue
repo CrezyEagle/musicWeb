@@ -1,6 +1,8 @@
 <template>
   <div class="tobimg">
-    <div class="imgdiv"><img :src="imgurl" alt=""></div>
+    <slot name="imga">
+      <div class="imgdiv"><img :src="imgurl" alt=""></div>
+    </slot>
     <div class="youm">
       <div class="top">
         <slot name="xq"><div class="xq"></div></slot>
@@ -13,7 +15,7 @@
           <span v-if="sja!=0" class="sj">{{sj}}</span>
         </div>
       </slot>
-      <bftb class="bf" :sc="sc" :fx="fx" :pl="pl"></bftb>
+      <bftb class="bf" :sc="sc" :lx='lx' @sca='sca' @sjsx='sjsx' :fxname='name' :id="id" :subscribed='subscribed' :fx="fx" :pl="pl" @bfa="bfa"></bftb>
       <slot name="xq2">
         <div class="xq2">
           标签：<span class="bp" v-for="(item,index) in tags " :key="index">{{item}}</span>
@@ -29,11 +31,22 @@
 <script>
 import bftb from './bftb.vue';
 export default {
+  methods:{
+    sjsx(){
+      this.$emit('sjsx')
+    },
+    sca(sc){
+      this.$emit('sca',sc)
+    },
+    bfa(){
+      this.$emit('bfa1')
+    }
+  },
   components: { bftb },
   computed:{
     sj(){
       var date = new Date(this.sja);
-      return date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+' '+'创建'
+      return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+'创建'
     }
   },
 props:{
@@ -52,6 +65,11 @@ props:{
     typeof:String,
     default:''
   },
+  //是否收藏
+  subscribed:{
+    typeof:Boolean,
+    default:false
+  },
   //作者名
       zzname:{
     typeof:String,
@@ -62,10 +80,20 @@ props:{
     typeof:Number,
     default:0
   },
+   //id
+     id:{
+    typeof:Number,
+    default:0
+  },
+  //当前类型
+     lx:{
+    typeof:Number,
+    default:0
+  },
   //歌单收藏数量
     sc:{
     typeof:String,
-    default:''
+    default:'收藏'
   },
   //歌单分享数量
     fx: {
@@ -126,6 +154,9 @@ props:{
 .sj{
   margin-left: 10px;
       color: #999;
+          overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .tobimg{
  width: 100%;
@@ -160,12 +191,15 @@ img{
     background-image: url(~assets/img/精灵图4.png);
 }
 .youm{
-  margin-left: 20px;
-  width:55%;
+  margin-left: 40px;
+  width:65%;
 
 }
 .name{
   font-size: .104167rem;
+      overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   margin-left: 10px;
 }
 .zz{

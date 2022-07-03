@@ -1,7 +1,7 @@
 <template>
 <!-- 歌单热门推荐 -->
   <div class="remg">
-  <navbar :arr='arr' name='热门推荐'></navbar>
+  <navbar :arr='arr' name='热门推荐' routera="/home/gedan" @namea='cz'></navbar>
     <div class="gequ">
     <gedan class="gedan" v-for="(item,index) in songSheet" :key="index" :songSheet='item' ></gedan>
    
@@ -35,6 +35,14 @@ methods:{
   song(){
     zs().then(res=>{
       this.songSheet=res.data.blocks[1].creatives
+    })
+  },
+  cz(name){
+    this.$router.push({
+      path:"/home/gedan",
+      query:{
+        name:name
+      }
     })
   }
 }

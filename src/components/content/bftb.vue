@@ -1,64 +1,131 @@
 <template>
   <div class="tb">
-    <span
+    <span class="g1"
       ><div @click="fna()">
         <div class="ii"></div>
         播放
       </div></span
     >
-    <span></span>
-    <slot name="sc"><span><div>{{sc}}</div></span></slot>
-    <span
-      ><div>{{fxa}}</div></span
+    <span @click="fna()"></span>
+    <slot name="sc"
+      ><span class="g1" :class="{ sc2: subscribed }" @click="fndl()"
+        ><div :class="{ sc: subscribed }">{{ sc }}</div></span
+      ></slot
     >
-    <span><div>下载</div></span>
-   <slot name="pl">
-      <span
-      ><div>{{ pla }}</div></span
+    <span class="g1" @click="fxl()"
+      ><div>{{ fxa }}</div></span
     >
-   </slot>
+    <span class="g1" @click="xiaz()"><div>下载</div></span>
+    <slot name="pl">
+      <span class="g1" 
+        ><div>{{ pla }}</div></span
+      >
+    </slot>
   </div>
 </template>
 
 <script>
 export default {
-   props: {
+  props: {
+    //id
+    id: {
+      typeof: Number,
+      default: 0,
+    },
     fx: {
       type: Number,
-      default:0
+      default: 0,
+    },
+    //是否收藏
+    subscribed: {
+      typeof: Boolean,
+      default: false,
+    },
+    //当前类型
+    lx: {
+      typeof: Number,
+      default: -1,
     },
     pl: {
       type: Number,
-      default:0
+      default: 0,
     },
-    sc:{
-      type:String,
-      default:'收藏'
-    }
-  },
-  computed:{
-    fxa(){
-      return this.fx!=0?this.fx:''
+    sc: {
+      type: String,
+      default: "收藏",
     },
-    pla(){
-      return this.pl!=0?this.pl:''
-    }
+    //分享的名字
+    fxname: {
+      type: String,
+      default: "",
+    },
   },
-  methods:{
-    fna(){
-      this.$emit('bfa')
-    }
-  }
+  computed: {
+    fxa() {
+      return this.fx != 0 ? this.fx : "";
+    },
+    pla() {
+      return this.pl != 0 ? this.pl : "";
+    },
+  },
+  methods: {
+    //下载客户端
+    xiaz(){
+      this.$store.commit('setxzk',true)
+    },
+    //分享
+    fxl() {
+      if (this.$store.state.lpa != 1) {
+        if (this.lx != -1) {
+          this.$store.commit("setfxlx", this.lx);
+          this.$store.commit("setfxid", this.id);
+          this.$store.commit("setfxname", this.fxname);
+        }
+      } else {
+        this.$store.commit("setdl", true);
+      }
+    },
+    fna() {
+      this.$emit("bfa");
+    },
+    fndl() {
+      if (this.$route.query.dy) return;
+      if (this.$store.state.lpa != 1) {
+        //判断用户是否收藏
+        if (this.subscribed) {
+          this.$emit("sca", false);
+          this.$emit('sjsx')
+        } else {
+          this.$emit("sca", true);
+          this.$emit('sjsx')
+        }
+      } else {
+        this.$store.commit("setdl", true);
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
+.sc2 {
+  background-position: right -1192px !important;
+}
+.sc {
+  background-position: 0 -1149px !important;
+}
+/* .g1{
+  width: 59px;
+} */
 .tb {
   display: flex;
   align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
 }
 .tb span {
   display: inline-block;
+  margin-top: 10px;
 }
 .tb span > div {
   background-position: 0 -387px;
@@ -99,7 +166,7 @@ export default {
   margin-right: 10px;
 }
 .tb span:nth-child(3) > div {
-      background-position: 0 -977px;
+  background-position: 0 -977px;
   background-image: url(~assets/img/精灵图5.png);
   padding-right: 2px;
   padding-left: 28px;
@@ -136,7 +203,7 @@ export default {
 }
 .tb span:nth-child(6) > div {
   background-position: 0 -1465px;
-
+cursor: default;
   background-image: url(~assets/img/精灵图5.png);
   padding-right: 2px;
   padding-left: 28px;

@@ -9,10 +9,8 @@
             gedanxq.updateFrequency
           }}）
         </div>
-        <bftb :fx='gedanxq.shareCount' :pl='gedanxq.commentCount' @bfa='bfg()'>
-          <template v-slot:sc>
-            <div></div>
-          </template>
+        <bftb lx='1' :fxname='gedanxq.name' :id='gedanxq.id' :fx='gedanxq.shareCount' :subscribed='subscribed' :sc='String(gedanxq.subscribedCount)' @sca='sca' :pl='gedanxq.commentCount' @bfa='bfg()'>
+     
         </bftb>
       </div>
     </div>
@@ -34,6 +32,7 @@
 
 <script>
 import Navbar from 'components/content/navbar.vue';
+import gedansc from "network/home/gedan/gedansc.js";
 import Pinlun from 'components/content/pinlun/pinlun.vue';
 import tablea from 'components/content/gequlieb/tablea.vue';
 import Bftb from 'components/content/bftb.vue';
@@ -42,15 +41,40 @@ export default {
   components: { tablea, Navbar, Pinlun, Bftb, Gequlieb },
   data() {
     return {
-      bf:0
+      bf:0,
+      subscribed:false
     }
   },
   methods:{
     bfg(){
 this.bf++
+    },
+    sca(sc){
+   if(sc){
+        gedansc(this.gedanxq.id,this.$store.state.lpa,1).then(res=>{
+          console.log('歌单收藏成功');
+this.subscribed=sc
+        })
+      }else{
+gedansc(this.gedanxq.id,this.$store.state.lpa,2).then(res=>{
+          console.log('歌单收藏成功');
+this.subscribed=sc
+        })
+      }
+    }
+  },
+  watch:{
+    lpa(){
+   
+  this.subscribed=this.gedanxq.scmy
+   
     }
   },
   computed: {
+    lpa(){
+      if(Object.keys(this.gedanxq).length == 0) return
+      return this.gedanxq.scmy
+    },
     //时间格式化
     sj() {
       var c = this.gedanxq.sj;

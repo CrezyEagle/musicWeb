@@ -9,24 +9,27 @@ export function diantaifl(){
 }
 //推荐节目
 export function tuijian(){
+  let sjc=+new Date()
   return request({
-    url: '/program/recommend',
+    url: '/program/recommend?sjc='+sjc,
     method: 'GET',
     withCredentials: true
   })
 }
 //节目排行
 export function jiemp(){
+  let sjc=+new Date()
   return request({
-    url: '/dj/program/toplist',
+    url: '/dj/program/toplist?sjc='+sjc,
     method: 'GET',
     withCredentials: true
   })
 }
 //类别推荐4个
 export function leb(confg){
+  let sjc=+new Date()
   return request({
-    url: '/dj/recommend/type?type='+confg,
+    url: '/dj/recommend/type?type='+confg+'&sjc='+sjc,
     method: 'GET',
     withCredentials: true
   })
@@ -41,8 +44,27 @@ export function xqph(confg){
 }
 //电台详情
 export function dtxq(confg){
+  let sjc=+new Date()
   return request({
-    url: '/dj/detail?rid='+confg,
+    url: '/dj/detail?rid='+confg+'&sjc='+sjc,
+    method: 'GET',
+    withCredentials: true
+  })
+}
+//登录后电台详情
+export function dldtxq(confg,cookie){
+  let sjc=+new Date()
+  return request({
+    url: '/dj/detail?rid='+confg+'&cookie='+encodeURIComponent(cookie)+'&sjc='+sjc,
+    method: 'GET',
+    withCredentials: true
+  })
+}
+let sjc=+new Date()
+//登录后电台订阅
+export function diantdy(confg,cookie,t){
+  return request({
+    url: '/dj/sub?rid='+confg+'&cookie='+encodeURIComponent(cookie)+'&t='+t+'&sjc='+sjc,
     method: 'GET',
     withCredentials: true
   })

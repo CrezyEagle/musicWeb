@@ -1,5 +1,5 @@
 <template>
-  <div v-if="gq.length!=0">
+  <div v-if="$store.state.a.id!=''" class="bh">
     <div class="xs">相似歌曲</div>
     <div v-for="(item,index) in gq" :key="index">
       <div class="name">{{item.name}}</div>
@@ -37,6 +37,9 @@ export default {
 </script>
 
 <style scoped>
+.bh{
+  margin-bottom: 50px;
+}
 .xs{
     padding-bottom: 10px;
   margin-bottom: 20px;

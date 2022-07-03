@@ -1,10 +1,6 @@
 <template>
   <!-- 榜单歌曲详情 -->
-  <div
-    class="tab"
-    v-if="Object.keys(obj).lengdiv != 0"
-   
-  >
+  <div class="tab" v-if="Object.keys(obj).lengdiv != 0">
     <!-- 头部 -->
     <div class="nm">
       <div>排行</div>
@@ -12,23 +8,37 @@
       <div>收藏</div>
       <div>歌手</div>
     </div>
-    <div v-for="(item, index) in obj.tracks" :key="index" class="geq"  @mouseover="ff(index)"
-    @mouseout="ff2()">
+    <div
+      v-for="(item, index) in obj.tracks"
+      :key="index"
+      class="geq"
+      @mouseover="ff(index)"
+      @mouseout="ff2()"
+    >
       <!-- 排行 -->
       <div class="ph">{{ index + 1 }}</div>
       <!-- 歌名 -->
-      <div class="gm" :class="{ssaa:ac&&index<3}">
-        <img v-if="index < 3&&ac" :src="item.al.picUrl" alt="" />
-        <span class="sp" @click="aoudi(item.id,index,item.name,item.al.picUrl,item.al.name)">&nbsp;</span>
+      <div class="gm" :class="{ ssaa: ac && index < 3 }">
+        <img v-if="index < 3 && ac" :src="item.al.picUrl" alt="" />
+        <span
+          class="sp"
+          @click="
+            aoudi(item.id, index, item.name, item.al.picUrl, item.al.name)
+          "
+          >&nbsp;</span
+        >
         <span class="sp1">{{ item.name }}</span>
         <span class="sp2" v-if="item.alia.length != 0"> {{ fa(index) }} </span>
       </div>
       <!-- 收藏 -->
       <div class="sc">
-        <div  v-show="isShow == index"></div>
-        <div  v-show="isShow == index"></div>
-        <div  v-show="isShow == index"></div>
-        <div  v-show="isShow == index"></div>
+        <div
+          :class="{ acaa: inde == '0' }"
+          v-show="isShow == index"
+          @click="scsong(item)"
+        ></div>
+        <div v-show="isShow == index" @click="fxg(item.id, item.name)"></div>
+        <div v-show="isShow == index" @click="xza()"></div>
       </div>
       <div class="zz">{{ m1(index) }}{{ m2(index) }}</div>
     </div>
@@ -36,6 +46,8 @@
 </template>
 
 <script>
+import { xih } from "network/home/song/index.js";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -52,19 +64,79 @@ export default {
     },
   },
   methods: {
+    //分享歌曲
+    fxg(id, name) {
+      if (this.$store.state.lpa != 1 && this.$store.state.ncym != true) {
+        this.$store.commit("setfxlx", 5);
+        this.$store.commit("setfxid", id);
+        this.$store.commit("setfxname", name);
+      } else {
+        this.$store.commit("setdl", true);
+      }
+    },
+    //点击下载
+    xza() {
+      this.$store.commit("setxzk", true);
+    },
+    //歌曲喜欢
+    scsong(item) {
+      if (this.$store.state.lpa != 1 && this.$store.state.ncym != true) {
+        //删除歌曲喜欢
+        if (this.inde == "0") {
+          xih(item.id, false, this.$store.state.lpa).then((res) => {
+            this.$emit("cxsx");
+          }).catch(err=>{
+            console.log(err);
+            console.log(1111);
+          })
+        } else {
+          //歌曲喜欢
+          xih(item.id, true, this.$store.state.lpa).then((res) => {
+            this.$store.commit("setsccgaa");
+            this.$emit("cxsx");
+          }).catch(err=>{
+            console.log(err);
+            console.log(1111);
+          })
+        }
+      } else {
+        this.$store.commit("setdl", true);
+      }
+
+      // let thi = this;
+      // axios({
+      //   url:
+      //     "/playlist/tracks?op=del&pid=" +
+      //     thi.obj.id +
+      //     "&tracks=" +
+      //     item.al.id +
+      //     "&cookie=" +
+      //     encodeURIComponent(thi.$store.state.lpa),
+      //   method: "GET",
+      //   withCredentials: true,
+      // })
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+    },
+    fndl() {
+      this.$store.commit("setdl", true);
+    },
     ff(index) {
-      this.isShow=index
- 
+      this.isShow = index;
     },
     ff2() {
-      this.isShow=-1
+      this.isShow = -1;
     },
     //歌手名
     m1(index) {
       return this.obj.tracks[index].ar[0].name;
     },
     m2(index) {
-      if (this.obj.tracks[index].ar.length>= 2) {
+      if (this.obj.tracks[index].ar.length >= 2) {
         return "/" + this.obj.tracks[index].ar[1].name;
       }
       return "";
@@ -73,29 +145,29 @@ export default {
       return;
     },
     //获取歌曲url
-    aoudi(id,index,gqname,img,zjname){
-      
-     this.$store.dispatch('seturl',id)
+    aoudi(id, index, gqname, img, zjname) {
+      this.$store.dispatch("seturl", id);
 
-     let name= this.m1(index)+this.m2(index)
-      this.$store.commit('setname',name)
-      this.$store.commit('setgqname',gqname)
-      this.$store.commit('setimga',img)
-      this.$store.commit('setindex',index)
-      this.$store.commit('setarr',this.obj.tracks)
-      this.$store.commit('setzj',zjname)
-     
+      let name = this.m1(index) + this.m2(index);
+      this.$store.commit("setname", name);
+      this.$store.commit("setgqname", gqname);
+      this.$store.commit("setimga", img);
+      this.$store.commit("setindex", index);
+      this.$store.commit("setarr", this.obj.tracks);
+      this.$store.commit("setzj", zjname);
+      this.$store.commit("setjzdk", false);
     },
-    aoudi2(){
-        this.$store.dispatch('seturl',this.obj.tracks[0].id)
-     let name= this.m1(0)+this.m2(0)
-      this.$store.commit('setname',name)
-      this.$store.commit('setgqname',this.obj.tracks[0].name)
-      this.$store.commit('setimga',this.obj.tracks[0].al.picUrl)
-      this.$store.commit('setindex',0)
-      this.$store.commit('setarr',this.obj.tracks)
-      this.$store.commit('setzj',this.obj.tracks[0].al.name)
-    }
+    aoudi2() {
+      this.$store.dispatch("seturl", this.obj.tracks[0].id);
+      let name = this.m1(0) + this.m2(0);
+      this.$store.commit("setname", name);
+      this.$store.commit("setgqname", this.obj.tracks[0].name);
+      this.$store.commit("setimga", this.obj.tracks[0].al.picUrl);
+      this.$store.commit("setindex", 0);
+      this.$store.commit("setjzdk", false);
+      this.$store.commit("setarr", this.obj.tracks);
+      this.$store.commit("setzj", this.obj.tracks[0].al.name);
+    },
   },
   props: {
     obj: {
@@ -108,7 +180,7 @@ export default {
       type: Number,
       default: -1,
     },
-     ac: {
+    ac: {
       type: Boolean,
       default: true,
     },
@@ -116,12 +188,20 @@ export default {
       type: Number,
       default: 0,
     },
+    inde: {
+      type: String,
+      default: "-1",
+    },
   },
-  watch:{
-    bf(){
-      this.aoudi2()
-    }
-  }
+
+  watch: {
+    bf() {
+      this.aoudi2();
+    },
+  },
+  created() {
+    axios.defaults.baseURL = "http://localhost:3000";
+  },
 };
 </script>
 
@@ -137,15 +217,11 @@ export default {
   flex: 1.5;
   cursor: pointer;
 }
-.sc div:nth-child(1) {
-  width: 13px;
-  float: left;
-  height: 13px;
-  margin-left: 5%;
-  background-position: 0 -700px;
-  background-image: url(~assets/img/精灵图4.png);
+.acaa {
+  background-position: -20px -217px !important;
 }
-.sc div:nth-child(2) {
+
+.sc div:nth-child(1) {
   float: left;
 
   width: 18px;
@@ -158,7 +234,7 @@ export default {
   background-image: url(~assets/img/精灵图6.png);
 }
 
-.sc div:nth-child(3) {
+.sc div:nth-child(2) {
   float: left;
 
   width: 18px;
@@ -170,7 +246,7 @@ export default {
   background-position: -20px -195px;
   background-image: url(~assets/img/精灵图6.png);
 }
-.sc div:nth-child(4) {
+.sc div:nth-child(3) {
   float: left;
 
   width: 16px;
@@ -239,6 +315,7 @@ export default {
   color: rgb(97, 97, 97);
   font-size: 0.066211rem;
   display: flex;
+  padding: 7px 0px;
   align-items: center;
   /* justify-content: space-between; */
 }
@@ -248,12 +325,12 @@ export default {
 .geq:nth-child(odd) {
   background-color: #ffffff;
 }
-.ssaa{
-  font-size: 0.089333rem  !important;
-  display: flex  !important;
-  align-items: center  !important;
-  height: 50px  !important;
-  padding: 10px  !important;
+.ssaa {
+  font-size: 0.089333rem !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 50px !important;
+  padding: 10px !important;
 }
 .gm {
   flex: 3;
@@ -269,7 +346,6 @@ export default {
   text-overflow: ellipsis;
 }
 .gm .sp {
-  
   width: 17px;
   height: 17px;
   cursor: pointer;
@@ -281,24 +357,22 @@ export default {
   margin-right: 23px;
   background-image: url(~assets/img/精灵图6.png);
 }
-.sp:hover{
+.sp:hover {
   background-position: 0 -128px;
-   width: 17px;
+  width: 17px;
   height: 17px;
-  
 }
-.sp1{
+.sp1 {
   flex: 1;
 
-    overflow: hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  
 }
 .sp2 {
   color: rgb(155, 155, 155);
   overflow: hidden;
- flex: 1;
+  flex: 1;
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;

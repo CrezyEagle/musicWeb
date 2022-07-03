@@ -1,7 +1,7 @@
 <template>
-<!-- 新碟推荐 -->
-  <div class="plate-w" >
-    <navbar name="新碟上架"></navbar>
+  <!-- 新碟推荐 -->
+  <div class="plate-w">
+    <navbar name="新碟上架" routera="/home/xindie"></navbar>
     <!-- <div class="tbr">
        <conplate
           class="swiper-slide"
@@ -10,13 +10,14 @@
           :weekData="item"
         ></conplate>
     </div> -->
-    <div class="swiper-container1 ">
+    <div class="swiper-container1">
       <div class="swiper-wrapper">
         <conplate
           class="swiper-slide"
           v-for="(item, index) in arr"
           :key="index"
           :weekData="item"
+          @click="fn(item.id)"
         ></conplate>
       </div>
 
@@ -29,7 +30,7 @@
 
 <script>
 import Navbar from "components/content/navbar.vue";
-import Conplate from "../../../components/content/conplate.vue";
+import Conplate from "components/content/conplate.vue";
 import weekData from "network/home/gedan/index.js";
 import Swiper from "swiper";
 export default {
@@ -38,6 +39,9 @@ export default {
       arr: [],
       swiper: null,
     };
+  },
+  activated(){
+    this.swipa();
   },
   components: {
     Navbar,
@@ -50,21 +54,30 @@ export default {
     wc() {
       return this.arr;
     },
-    wc2(){
-      return this.swiper
-    }
+    wc2() {
+      return this.swiper;
+    },
   },
   watch: {
     wc: function () {
-      setTimeout(()=>{
+      setTimeout(() => {
         this.swipa();
-      },200)
+      }, 200);
     },
-    wc2:function(){
-      this.swiper.update();	
-    }
+    wc2: function () {
+      this.swiper.update();
+    },
   },
   methods: {
+    fn(id) {
+      console.log(1);
+      this.$router.push({
+        path: "/home/xindiexq",
+        query: {
+          id,
+        },
+      });
+    },
     //数据请求
     axiosp() {
       weekData()
@@ -76,54 +89,67 @@ export default {
         });
     },
     swipa() {
-      new Swiper('.swiper-container1', {
-	  loop: true,
-	  speed: 2500,
-      slidesPerView: 7,
-      spaceBetween: 30,
-	  centeredSlides : true,
-	  watchSlidesProgress : true,
-	  on: {
-	    setTranslate: function(){
-		var	slides = this.slides
-			for(let i=0; i< slides.length; i++){
-			var	slide = slides.eq(i)
-		var		progress = slides[i].progress
-				//slide.html(progress.toFixed(2)); 看清楚progress是怎么变化的
-				    slide.css({'opacity': '','background': ''});slide.transform('');//清除样式
-					
-					if(effect == 1){
-					    slide.transform('scale('+(1 - Math.abs(progress)/8)+')');  
-					}else if(effect == 2){
-						slide.css('opacity',(1-Math.abs(progress)/6));
-					    slide.transform('translate3d(0,'+ Math.abs(progress)*20+'px, 0)');  
-					}
-					else if(effect == 3){
-					    slide.transform('rotate('+ progress*30+'deg)');  
-					}else if(effect == 4){
-						slide.css('background','rgba('+ (255 - Math.abs(progress)*20) +','+ (127 + progress*32) +',' + Math.abs(progress)*64 + ')');
-					}
-					
-				}	
-		},
-		setTransition: function(transition) {
-			for (var i = 0; i < this.slides.length; i++) {
-				var slide = this.slides.eq(i)
-				slide.transition(transition);
-			}
-		},
-	  },
-	  navigation: {
-		nextEl: '.swiper-button-next',
-		prevEl: '.swiper-button-prev',
-	  },
-      // pagination: {
-      //   el: '.swiper-pagination',
-      //   clickable: true,
-      // },
-    });
+      new Swiper(".swiper-container1", {
+        autoplay: {
+          delay: 800,
+        },
+        loop: true,
+        speed: 2500,
+        slidesPerView: 7,
+        spaceBetween: 30,
+        centeredSlides: true,
+        watchSlidesProgress: true,
+        on: {
+          setTranslate: function () {
+            var slides = this.slides;
+            for (let i = 0; i < slides.length; i++) {
+              var slide = slides.eq(i);
+              var progress = slides[i].progress;
+              //slide.html(progress.toFixed(2)); 看清楚progress是怎么变化的
+              slide.css({ opacity: "", background: "" });
+              slide.transform(""); //清除样式
 
-	   var effect = 0
+              if (effect == 1) {
+                slide.transform("scale(" + (1 - Math.abs(progress) / 8) + ")");
+              } else if (effect == 2) {
+                slide.css("opacity", 1 - Math.abs(progress) / 6);
+                slide.transform(
+                  "translate3d(0," + Math.abs(progress) * 20 + "px, 0)"
+                );
+              } else if (effect == 3) {
+                slide.transform("rotate(" + progress * 30 + "deg)");
+              } else if (effect == 4) {
+                slide.css(
+                  "background",
+                  "rgba(" +
+                    (255 - Math.abs(progress) * 20) +
+                    "," +
+                    (127 + progress * 32) +
+                    "," +
+                    Math.abs(progress) * 64 +
+                    ")"
+                );
+              }
+            }
+          },
+          setTransition: function (transition) {
+            for (var i = 0; i < this.slides.length; i++) {
+              var slide = this.slides.eq(i);
+              slide.transition(transition);
+            }
+          },
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        // pagination: {
+        //   el: '.swiper-pagination',
+        //   clickable: true,
+        // },
+      });
+
+      var effect = 0;
     },
   },
 };
@@ -144,12 +170,12 @@ export default {
 body {
   background: #eee;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: .073568rem;
+  font-size: 0.073568rem;
   color: #000;
   margin: 0;
   padding: 0;
 }
-.swiper-pagination{
+.swiper-pagination {
   bottom: 0px;
 }
 .swiper-container1 {
@@ -158,20 +184,20 @@ body {
   position: relative;
   height: auto;
   padding: 30px 10px;
-  border: 1px solid #D3D3D3;
+  border: 1px solid #d3d3d3;
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
   overflow: hidden;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
-.swiper-wrapper{
+.swiper-wrapper {
   left: 0;
   margin: 0px auto;
 }
 .swiper-slide {
   text-align: center;
-  font-size: .094587rem;
+  font-size: 0.094587rem;
   background: #fff;
   height: 100px;
 

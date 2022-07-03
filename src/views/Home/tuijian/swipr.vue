@@ -11,13 +11,19 @@
       <div class="swiper-slide">
         <img src="~assets/img/nature-3.jpg" alt="" />
       </div> -->
-      <div class="swiper-slide" v-for="(item, index) in arr" :key="index">
+      <div
+        class="swiper-slide"
+        v-for="(item, index) in arr"
+        :key="index"
+        @click="bf(item)"
+      >
+        <div v-if="item.song == undefined" class="gg">广告</div>
         <img :src="item.pic" alt="" />
       </div>
     </div>
     <div class="swiper-button-prev"></div>
     <!--左箭头。如果放置在swiper-container外面，需要自定义样式。-->
-    <div class="swiper-button-next"></div>
+    <div class="swiper-button-next" res="zjt"></div>
     <!--右箭头。如果放置在swiper-container外面，需要自定义样式。-->
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
@@ -34,35 +40,22 @@ export default {
       sj: 0,
       nm: null,
       jis: 1,
-      aa: null,
+ 
     };
   },
-  deactivated() {
-    console.log(12);
-    clearInterval(this.aa);
-  },
+
   created() {
     this.network();
   },
-  computed: {
-    tp() {
-      return this.arr[this.sj].pic;
-    },
+  activated() {
+    this.network();
   },
+
   watch: {
     arr: function (a, b) {
       setTimeout(() => {
         this.aaa();
-        this.aa = setInterval(() => {
-          this.nm = this.$refs.swp.style.transform;
-        }, 200);
       }, 200);
-    },
-    nm: function (a, b) {
-      if (this.jis !== 1) {
-        this.sj++;
-      }
-      this.jis = 2;
     },
   },
 
@@ -71,16 +64,33 @@ export default {
       //请求轮播图数据
       swipersj()
         .then((res) => {
-          this.arr = res.data.blocks[0].extInfo.banners;
+          this.arr = res.data.blocks[0].extInfo.banners.splice(0, 9);
           // console.log(this.arr);
         })
         .catch((err) => {
           console.log(err);
         });
     },
+    //歌手名
+    m1(ar) {
+      return ar[0].name;
+    },
+    m2(ar) {
+      if (ar.length >= 2) {
+        return "/" + ar[1].name;
+      }
+      return "";
+    },
+    //播放
+    bf(item) {
+      if (item.song == undefined) return;
+      let name = this.m1(item.song.ar) + this.m2(item.song.ar);
+      this.$store.commit("setname", name);
+      this.$store.dispatch("seturl", item.song.id);
+      this.$store.commit("setimga", item.song.al.picUrl);
+      this.$store.commit("setgqname", item.song.name);
+    },
     aaa() {
-      console.log("lbt");
-
       new Swiper(".swiper-container", {
         speed: 800,
         navigation: {
@@ -110,6 +120,16 @@ export default {
 @import "~assets/css/swiper.min.css";
 .swiper-pagination {
   bottom: 5px;
+}
+.gg {
+  padding: 5px 10px;
+  border: 1px solid #fff;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  right: 0;
+
+  font-size: 0.052083rem;
 }
 html,
 body {

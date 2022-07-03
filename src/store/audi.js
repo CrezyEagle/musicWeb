@@ -21,18 +21,24 @@ const modelA = {
     arr: [],
     //播放形式
     xha: 0,
-    itema:'',  //正在播放的时间
-    jd:0
+    itema: '',  //正在播放的时间
+    jd: 0,
+    jzdk:false    //禁止查看详情
 
   },
   mutations: {
-    setjdt(state,jda){
-     
-      state.jd=jda
-   
+    setjzdk(state, jda) {
+
+      state.jzdk = jda
+
     },
-    setitema: (state,sj) => {
-      state.itema=sj
+    setjdt(state, jda) {
+
+      state.jd = jda
+
+    },
+    setitema: (state, sj) => {
+      state.itema = sj
     },
     setxha: (state) => {
       state.xha++
@@ -67,32 +73,20 @@ const modelA = {
     setindej: (state) => {
       state.index++
     },
+
     setindea: (state) => {
       state.index--
     },
     //随机改变下标
     //下一首
     setsj: (state) => {
+      
       state.index += Math.floor(Math.random() * 10 + 1)
       if (state.index >= state.arr.length) {
         state.index = Math.floor(Math.random() * 10 + 1)
       }
     },
-        //点击下一首(随机)
-        xysgsj: (context) => {
-
-          context.commit('setsj')
     
-    
-          url(context.state.arr[context.state.index].id).then(res => {
-            context.commit('seturln', res.data[0].url)
-            context.commit('setgqname', context.state.arr[context.state.index].name)
-            context.commit('setname', context.state.arr[context.state.index].ar[0].name)
-            context.commit('setimga', context.state.arr[context.state.index].al.picUrl)
-            context.commit('setzj', context.state.arr[context.state.index].al.name)
-            context.commit('setid', context.state.arr[context.state.index].id)
-          })
-        },
     //上一首
     setsjj: (state) => {
       state.index -= Math.floor(Math.random() * 10 + 1)
@@ -102,18 +96,50 @@ const modelA = {
     }
 
   },
+  // getters:{
+  //   rootState:(state,gg,rootStates)=>{
+  //     rootStates.bq=true
+  //     console.log(rootStates.bq);
+  //   },
+  // },
   actions: {
-    seturl: (context, zj) => {
+    seturl: (context, zj, rootState) => {
       context.commit('setid', zj)
       url(zj).then(res => {
+        if (res.data[0].url == null) {
+          context.commit('setbq', true)
+        }
         context.commit('seturln', res.data[0].url)
+       
+        // console.log(res);
       })
     },
+//点击下一首(随机)
+xysgsj: (context) => {
+  if(context.state.arr==undefined) return;
+  if (context.state.arr.length <= 4) return
+  context.commit('setsj')
 
+
+  url(context.state.arr[context.state.index].id).then(res => {
+   
+    context.commit('seturln', res.data[0].url)
+    context.commit('setgqname', context.state.arr[context.state.index].name)
+    context.commit('setname', context.state.arr[context.state.index].ar[0].name)
+    context.commit('setimga', context.state.arr[context.state.index].al.picUrl)
+    context.commit('setzj', context.state.arr[context.state.index].al.name)
+    context.commit('setid', context.state.arr[context.state.index].id)
+    if (res.data[0].url == null) {
+      context.commit('setbq', true)
+      return
+    }
+  })
+},
     //点击下一首
     xysg: (context) => {
-      console.log(context.state.arr.length);
-      if (context.state.index >= context.state.arr.length-1) {
+      if(context.state.arr==undefined) return;
+      if (context.state.arr.length <= 1) return
+      if (context.state.index >= context.state.arr.length - 1) {
         context.commit('setindex', 0)
       } else {
         context.commit('setindej')
@@ -126,12 +152,18 @@ const modelA = {
         context.commit('setimga', context.state.arr[context.state.index].al.picUrl)
         context.commit('setzj', context.state.arr[context.state.index].al.name)
         context.commit('setid', context.state.arr[context.state.index].id)
+        if (res.data[0].url == null) {
+          context.commit('setbq', true)
+          return
+        }
       })
     },
     //点击上一首
     sysg: (context) => {
+      if(context.state.arr==undefined) return;
+      if (context.state.arr.length <= 1) return
       if (context.state.index <= 0) {
-        context.commit('setindex',context.state.arr.length-1 )
+        context.commit('setindex', context.state.arr.length - 1)
       } else {
         context.commit('setindea')
       }
@@ -142,10 +174,16 @@ const modelA = {
         context.commit('setzj', context.state.arr[context.state.index].al.name)
         context.commit('setname', context.state.arr[context.state.index].ar[0].name)
         context.commit('setid', context.state.arr[context.state.index].id)
+        if (res.data[0].url == null) {
+          context.commit('setbq', true)
+          return
+        }
       })
     },
     //点击上一首(随机)
     sysgsj: (context) => {
+      if(context.state.arr==undefined) return;
+      if (context.state.arr.length <= 4) return
       context.commit('setsjj')
       url(context.state.arr[context.state.index].id).then(res => {
         context.commit('seturln', res.data[0].url)
@@ -154,6 +192,10 @@ const modelA = {
         context.commit('setzj', context.state.arr[context.state.index].al.name)
         context.commit('setname', context.state.arr[context.state.index].ar[0].name)
         context.commit('setid', context.state.arr[context.state.index].id)
+        if (res.data[0].url == null) {
+          context.commit('setbq', true)
+          return
+        }
       })
     }
   }

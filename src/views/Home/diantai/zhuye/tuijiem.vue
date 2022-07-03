@@ -1,6 +1,6 @@
 <template>
 <!-- 推荐节目排行   -->
-<div  v-if='Object.keys(obj).length!=0' class="tuij" @click="fn(obj.id)">
+<div  v-if='Object.keys(obj).length!=0' class="tuij" @click="fn()">
   <div class="">
     <img :src="a" alt="">
   </div>
@@ -18,15 +18,28 @@
 <script>
 export default {
   methods:{
-    fn(id){
-      console.log(id);
-        // this.$router.push({
-        // path:"/home/diantaixq",
-        // query:{
-        //   id:id
-        // }
-      // })
-    }
+     fn() {
+       if(this.ac==1){
+
+  this.$store.dispatch('seturl',this.obj.mainTrackId)
+       this.$store.commit('setname',this.obj.dj.nickname)
+      this.$store.commit('setgqname',this.obj.name)
+      this.$store.commit('setimga',this.obj.coverUrl)
+      this.$store.commit('setindex',0)
+
+      this.$store.commit('setjzdk',true)
+       }else {
+           this.$store.dispatch('seturl',this.obj.program.mainTrackId)
+       this.$store.commit('setname',this.obj.program.dj.nickname)
+      this.$store.commit('setgqname',this.obj.program.name)
+      this.$store.commit('setimga',this.obj.program.coverUrl)
+      this.$store.commit('setindex',0)
+   
+      this.$store.commit('setjzdk',true)
+       }
+    
+   
+    },
   },
   computed:{
 a(){
@@ -76,9 +89,11 @@ img{
 .tuij{
       height: 40px;
       display: flex;
+      padding: 5px 0px;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
+      padding: 25px 20px;
+      box-sizing: border-box;
       border-right: 1px solid #e2e2e2;
        border-left: 1px solid #e2e2e2;
 }

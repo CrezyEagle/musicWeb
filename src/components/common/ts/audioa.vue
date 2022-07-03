@@ -1,5 +1,6 @@
 <template>
   <div class="aud">
+    <div class="xaa"><div :class="{sdmy:sd}" class="suoa"  @click="sdk()"></div></div>
     <audio
       class="yyue"
       ref="aud"
@@ -42,10 +43,10 @@
     </div>
     <!-- 歌曲详情 -->
     <div class="xq" ref="xq">
-      <img :src="img" alt="" @click="clickImg()" />
+      <img v-if="img!=''" :src="img" alt="" @click="clickImg()" />
       <div>
         <div class="gqxq">
-          <span>{{ gqname }}</span
+          <span class="gqnamea">{{ gqname }}</span
           ><span class="gqname">{{ name }}</span
           ><span class="fx"></span>
         </div>
@@ -104,17 +105,22 @@ export default {
       syszt: true, //上一首
       xyszt: true, //下一首
       progress1: "0%", //进度条进度
-      jl: 41,
+      jl: 20,
       jzz: false, //加载显示图标
       yl: 10, //  音量
       xs: false, //显示隐藏音量设置
       xha: 2, //循环控制
+      sd:true  //锁定
     };
   },
 
   watch: {
     urln(a, b) {
+      if(a==''){
+        this.$store.commit('setbq',true)
+      }
       this.url = a;
+     
       setTimeout(() => {
         this.fg();
       }, 500);
@@ -159,6 +165,11 @@ export default {
     },
   },
   methods: {
+    sdk(){
+      this.sd=!this.sd
+
+    },
+
     zj() {
       this.xha++;
       this.$store.commit("setxha");
@@ -169,6 +180,7 @@ export default {
     },
     //前往歌曲详情
     clickImg() {
+      if(this.$store.state.a.jzdk) return
       this.$router.push({
         path: "/home/song",
       });
@@ -238,34 +250,38 @@ export default {
     mousedown(e) {
       this.bf = true;
       this.$refs.aud.pause();
-
+       document.onmouseup = (e) => {
+          this.$refs.aud.currentTime =
+            Number((e.pageX - this.$refs.jind.offsetLeft ) / 490) *
+            this.$refs.aud.duration;
+          this.$store.commit("setjdt", this.$refs.aud.currentTime );
+          document.onmouseup = null;
+          document.onmousemove = null;
+          this.bf = false;
+          this.$refs.aud.play();
+        };
       document.onmousemove = (e) => {
         //拖动小圆点，进度条滑动
         this.progress1 =
           Number(
-            ((e.pageX - this.$refs.jind.offsetLeft - this.jl) / 490) * 100
+            ((e.pageX - this.$refs.jind.offsetLeft  ) / 490) * 100
           ) >= 100
             ? 100 + "%"
-            : ((e.pageX - this.$refs.jind.offsetLeft - this.jl) / 490) * 100 +
+            : ((e.pageX - this.$refs.jind.offsetLeft ) / 490) * 100+
               "%";
 
         //鼠标弹起
         this.$refs.jind.onmouseup = (e) => {
           //鼠标弹起的同时修改歌曲进度
           this.$refs.aud.currentTime =
-            Number((e.pageX - this.$refs.jind.offsetLeft - this.jl) / 490) *
+            Number((e.pageX - this.$refs.jind.offsetLeft) / 490) *
             this.$refs.aud.duration;
           this.$store.commit("setjdt", this.$refs.aud.currentTime );
           document.onmousemove = null;
           this.bf = false;
           this.$refs.aud.play();
         };
-        document.onmouseup = (e) => {
-          document.onmousemove = null;
-          document.onmousemove = null;
-          this.bf = false;
-          this.$refs.aud.play();
-        };
+   
       };
     },
 
@@ -280,10 +296,14 @@ export default {
 
       this.progress1 =
         (this.$refs.aud.currentTime / this.$refs.aud.duration) * 100 + "%";
+        //当前是否是循环播放
       if (parseFloat(this.progress1.substr(0, 4)) >= 99.6 && this.xha == 2) {
+        //切换下一首
         this.$store.dispatch("xysg");
       }
+      //当前是否是随机播放
       if (parseFloat(this.progress1.substr(0, 4)) >= 99.6 && this.xha == 1) {
+        //切换下一首（随机）
         this.$store.dispatch("sysgsj");
       }
       this.$store.commit("setitema", this.$refs.aud.currentTime);
@@ -317,8 +337,33 @@ export default {
 </script>
 
 <style scoped>
+
+.sdmy{
+      background-position: -100px -380px  !important;
+}
+.suoa{
+      display: block;
+    width: 18px;
+    height: 18px;
+    margin:6px auto;
+    background-position: -80px -380px;
+    background-image: url(~assets/img/精灵图9.png);
+    cursor: pointer;
+}
+.xaa{
+        top: -20px;
+    right: 15px;
+    width: 52px;
+    height: 20px;
+    z-index: 10;
+        background-position: 0 -380px;
+    position: absolute;
+   background-image: url(~assets/img/精灵图9.png);
+}
 .xq img{
   cursor: pointer;
+  width: 38px;
+  height: 38px;
 }
 .sj1 {
   color: #a1a1a1;
@@ -397,7 +442,7 @@ export default {
   z-index: 10;
 }
 .dian {
-  margin-left: -5px;
+  margin-left: -3px;
   width: 22px;
   height: 24px;
   cursor: pointer;
@@ -405,7 +450,7 @@ export default {
   background-image: url(~assets/img/精灵图2.png);
   background-position: 0 -250px;
 
-  z-index: 10;
+  z-index: 100;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -421,7 +466,7 @@ export default {
 }
 .aud {
   position: fixed;
-  background-color: #2f2f2f;
+  background-color:#2A2A2A;
   color: #fff;
   bottom: 0;
   z-index: 20;
@@ -449,9 +494,9 @@ img {
 
   display: flex;
   align-items: center;
-  border-radius: 20px;
-  padding-right: 30px;
-  padding-left: 22px;
+  /* border-radius: 20px; */
+  /* padding-right: 30px; */
+  /* padding-left: 22px; */
   overflow: hidden;
   /* background-color: red; */
 }

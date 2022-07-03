@@ -1,6 +1,6 @@
 <template>
   <!-- 发现推荐主页 -->
-  <div>
+  <div class="taa">
     <swipr></swipr>
     <div class="main">
       <prevalent></prevalent>
@@ -17,12 +17,20 @@ import Prevalent from "./prevalent.vue";
 import swipr from "./swipr.vue";
 export default {
   components: { swipr, Prevalent, Plate, RankinList },
+  activated(){
+    this.$store.commit('settopa',false)
+  },
+  deactivated() {
+    this.$store.commit('settopa',true)
+  },
 };
 </script>
 
 <style scopde>
+
 .main{
   padding: 0px 50px;
+  padding-bottom: 20px;
   width: 70%;
   margin: 0px auto;
   box-sizing: border-box;

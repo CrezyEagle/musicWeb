@@ -1,18 +1,59 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="./老鹰.png">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
+  <link rel="shortcut icon" href="<%= BASE_URL %>老鹰.png" />
+  <!-- <link rel="icon" href="./老鹰.png"> -->
+  <style>
+    * {
+      -webkit-touch-callout: none;
+      /*系统默认菜单被禁用*/
+      -webkit-user-select: none;
+      /*webkit浏览器*/
+      -khtml-user-select: none;
+      /*早期浏览器*/
+      -moz-user-select: none;
+      /*火狐*/
+      -ms-user-select: none;
+      /*IE10*/
+      user-select: none;
+      padding: 0;
+      margin: 0;
+    }
+
+
+
+  </style>
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+
+  <!-- built files will be auto injected -->
+</body>
 </html>
+<script>
+//  var ap= document.querySelector('.he111')
+//  var aaa=document.querySelector('.aaa22')
+//  window.onresize=function(){
+//    console.log(document.body.clientWidth);
+//   if(document.body.clientWidth<=980){
+//     ap.style.display="none"
+//     aaa.style.display='block'
+//   }else{
+//     ap.style.display="block"
+//     aaa.style.display="none"
+//   }
+//  }
+</script>

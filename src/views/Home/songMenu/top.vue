@@ -9,10 +9,10 @@
       </template>
     </navbar>
     <!-- 全部风格 -->
-    <div class="xs " v-if="isShow">
+    <div class="xs" v-if="isShow">
       <div class="svg"></div>
       <div class="topa" @click="mr()"><div>全部风格</div></div>
-      <div >
+      <div>
         <div v-for="(item, index) in arr" :key="index" class="arr1">
           <div class="nm">
             <span class="nm11"></span><span class="nm12">{{ item }}</span>
@@ -45,8 +45,8 @@ export default {
   },
   methods: {
     //点击全部风格，请求全部风格
-    mr(){
-      this.$emit("mr", '默认');
+    mr() {
+      this.$emit("mr", "默认");
       this.isShow = false;
     },
     //匹配相应的分类
@@ -146,7 +146,7 @@ export default {
   border-left: 1px solid #d3d3d3;
   padding-bottom: 20px;
 }
-.xqq div:hover{
+.xqq div:hover {
   text-decoration: underline;
 }
 .xqq div {
@@ -209,7 +209,7 @@ export default {
 }
 .top {
   padding-top: 30px;
-    position: relative;
+  position: relative;
 }
 .top {
   width: 100%;

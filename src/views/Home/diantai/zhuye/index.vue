@@ -3,12 +3,14 @@
   <div class="nma">
     <div class="jm">
     <div class="tuj">
-      <navbar name="推荐节目"></navbar>
-      <tuijiem v-for="(item,index) in tuij" :key="index" ac='1' :obj='item' class="tuijs" @mouseover="fn(index)" @mouseout="fn2()" :class="{activ:isShow==index}" ></tuijiem>
+      <navbar name="推荐节目">
+      <template v-slot:gduo><div></div></template>
+      </navbar>
+      <tuijiem v-for="(item,index) in tuij" :key="index" ac='1' :obj='item' class="tuijs aac" ></tuijiem>
     </div>
     <div class="ph">
-      <navbar name='节目排行'></navbar>
-      <tuijiem v-for="(item,index) in sz" ac='0' :key="index" :obj='item' class="phs"  @mouseover="fn3(index)" @mouseout="fn4()" :class="{activ:isShow2==index}"></tuijiem>
+      <navbar name='节目排行'><template v-slot:gduo><div></div></template></navbar>
+      <tuijiem v-for="(item,index) in sz" ac='0' :key="index" :obj='item' class="phs aac"  ></tuijiem>
     </div>
   </div> 
   <div>
@@ -28,21 +30,7 @@ import navbar from 'components/content/navbar.vue'
 import Tuijiem from './tuijiem.vue'
 import Fltuijian from './fltuijian.vue'
 export default {
-  methods:{
-    //添加经过特效
-fn(index){
-  this.isShow=index
-},
-fn2(){
-this.isShow=-1
-},
-fn3(index){
-  this.isShow2=index
-},
-fn4(){
-this.isShow2=-1
-}
-  },
+
     components: { navbar, Tuijiem, Fltuijian },
   data() {
     return {
@@ -94,7 +82,7 @@ this.qt=res.djRadios.splice(0,4)
 </script>
 
 <style scoped>
-.activ{
+.aac:hover{
   background-color: #EEEEEE  !important;
 }
 

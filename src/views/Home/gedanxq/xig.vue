@@ -55,6 +55,9 @@ img{
   font-size: .072917rem;
   margin-top: 10px;
 }
+.gq:hover .name{
+  text-decoration: underline;
+}
 .name{
   cursor: pointer;
     width: 100%;

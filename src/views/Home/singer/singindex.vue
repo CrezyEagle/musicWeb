@@ -33,6 +33,7 @@ export default {
       ],
     };
   },
+
   methods:{
     fn(){
       this.$router.push({
@@ -52,6 +53,7 @@ export default {
   background-color: #ffff;
   margin: 0 auto;
   display: flex;
+  border: 1px solid #d5d5d5;
 }
 .tuij {
   padding-bottom: 10px;

@@ -1,6 +1,6 @@
 <template>
   <div class="tabeji" :class="{activ1:isShow==index}">
-    <div ><a href="JavaScript:;" :class="{activ3:isShow==index}">{{item}}</a></div>
+    <div ><div class="dia" :class="{activ3:isShow==index}">{{item}}</div></div>
     <div class="activ" v-show="isShow==index"></div>
   </div>
 </template>
@@ -36,9 +36,13 @@ export default {
     text-overflow: ellipsis;
   text-align: center;
 }
-a{
+.dia{
   text-decoration: none;
   color: #CCCC;
+  cursor: pointer;
+}
+.dia:hover{
+text-decoration: underline;
 }
 .activ1{
   background-color: #000000;

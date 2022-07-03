@@ -4,7 +4,7 @@ export default function indexxq(congf){
   //解决ajax的特殊字符请求问题
   let encodeStr=encodeURIComponent(congf);
   return request({
-    url: '/top/playlist?cat='+encodeStr,
+    url: '/top/playlist?limit=52&cat='+encodeStr,
     method: 'GET',
     withCredentials: true
   })

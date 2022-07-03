@@ -1,7 +1,7 @@
 <template>
   <!-- 分类推荐 -->
   <div class="fl" v-if="arr.length != 0">
-    <navbar :name="name" @click="fn2(arr[0].categoryId)"></navbar>
+    <navbar :name="name+'·电台'" @click="fn2(arr[0].categoryId)"></navbar>
     <div class="fla">
       <div
         class="xq"

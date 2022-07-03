@@ -31,7 +31,7 @@ computed:{
 },
 methods:{
   fn(){
-    console.log(this.songSheet.id);
+
     this.$router.push({
       path:'/home/gedanxq',
       query:{

@@ -46,14 +46,15 @@ export default {
   },
   watch: {
     rout(a, b) {
+      if(a==undefined) return
       window.scroll(0,0)
       leb(a).then((res) => {
         this.youx = res.djRadios.splice(0, 5);
-        console.log(this.youx);
+     
       });
       xqph(a).then((res) => {
         this.ph = res.djRadios
-        console.log(this.ph);
+  
       });
     },
   },
@@ -73,7 +74,6 @@ export default {
           id:id
         }
       })
-console.log(id);
     }
   }
 };

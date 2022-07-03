@@ -1,6 +1,6 @@
 <template>
 <!-- 歌碟封装 -->
-  <div class="conp" v-if="weekData.length!=0">
+  <div class="conp" v-if='Object.keys(weekData).length!=0'>
     <div class="dat">
       <img :src="weekData.blurPicUrl" alt="" />
       <a href="JavaScript:;" class="ya"></a>
@@ -28,8 +28,8 @@ export default {
 .conp{
   
   margin: 20px 10px;
-        /* width: 118px;
-      height: 150px; */
+        width: 118px;
+    
 }
 .dat{
   width: 100px;

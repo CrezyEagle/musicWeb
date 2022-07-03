@@ -2,7 +2,7 @@
 import {request} from 'network/request.js'
 export function xqgs1(type,area,){
   return request({
-    url: '/artist/list?type='+type+'+&area='+area+'&limit=50' ,
+    url: '/artist/list?type='+type+'+&area='+area+'&limit=80' ,
     method: 'GET',
     withCredentials: true
   })

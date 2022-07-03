@@ -3,7 +3,9 @@
 <div class="gqlb">
       <div>歌曲列表</div>
       <div>{{ge}}首歌</div>
-      <div>播放：<span>{{bf}}</span>次</div>
+      <slot name="cs">
+        <div>播放：<span>{{bf}}</span>次</div>
+      </slot>
     </div>
 </template>
 

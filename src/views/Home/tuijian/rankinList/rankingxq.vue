@@ -3,13 +3,15 @@
   <div dropzone="" v-if="Object.keys(obj).length != 0">
     <!-- 首页榜单详情 -->
     <div class="zj" @click="fn3(index)">
-    <div class="sz">  <img :src="obj.playlist.coverImgUrl" alt="" />
-      <a href="JavaScript:;"></a>
-      <div class="zuid">
-        <h3  >{{ obj.playlist.name}}</h3>
-        <div class="div1"></div>
-        <div class="div2"></div>
-      </div></div>
+      <div class="sz">
+        <img :src="obj.playlist.coverImgUrl" alt="" />
+        <a href="JavaScript:;"></a>
+        <div class="zuid">
+          <h3>{{ obj.playlist.name }}</h3>
+          <div class="div1"></div>
+          <div class="div2"></div>
+        </div>
+      </div>
     </div>
     <rangequ
       class="ran"
@@ -17,12 +19,12 @@
       :key="index"
       :obj="item"
       :ov="ov"
-      :id='ida'
+      :id="ida"
       :index="index"
       @mouseout="fn2(index)"
       @mouseover="fn(index)"
     ></rangequ>
-    <div class="qbaa"><div>全部查看></div></div>
+    <div @click="fn3(index)" class="qbaa"><div>全部查看></div></div>
   </div>
 </template>
 
@@ -33,19 +35,19 @@ export default {
   data() {
     return {
       obj: {},
-      obj1:{},
+      obj1: {},
       ov: -1,
     };
   },
   components: { rangequ },
-  
+
   props: {
     //得到歌单的id
     ida: {
       type: Number,
       default: 0,
     },
-     index: {
+    index: {
       type: Number,
       default: 0,
     },
@@ -58,21 +60,20 @@ export default {
     fn2(index) {
       this.ov = -1;
     },
-   fn3(index){
-  this.$store.commit('paihgb',index)
-  console.log(this.$store.state.paih);
-   this.$router.push({
-        path:'/home/paihang'
-      })
-}
+    fn3(index) {
+      this.$store.commit("paihgb", index);
+      console.log(this.$store.state.paih);
+      this.$router.push({
+        path: "/home/paihang",
+      });
+    },
   },
   mounted() {
     //组件挂载后获取到歌单的详情
     gedanxq3(this.ida)
       .then((res) => {
-        this.obj=res
+        this.obj = res;
         this.obj1 = res.playlist.tracks.slice(0, 10);
-    
       })
       .catch((err) => {
         console.log(err);
@@ -120,13 +121,13 @@ export default {
 .zuid {
   width: 60%;
 }
-h3:hover{
+h3:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 .qbaa {
   height: 20px;
-
+cursor: pointer;
   padding: 8px;
   color: #000;
   background-color: #e8e8e8;
@@ -150,8 +151,7 @@ h3:hover{
   height: 22px;
   float: left;
 }
-.sz{
+.sz {
   display: flex;
-
 }
 </style>

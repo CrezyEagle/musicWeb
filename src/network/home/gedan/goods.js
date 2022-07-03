@@ -1,5 +1,5 @@
 export class gedanfz{
-  constructor(name,img,commentCount,shareCount,sj,updateFrequency,tracks,playCount,id){
+  constructor(name,img,commentCount,shareCount,sj,updateFrequency,tracks,playCount,id,subscribedCount,scmy){
     //歌单名字
     this.name=name
     //图片
@@ -18,6 +18,8 @@ export class gedanfz{
     this.playCount=playCount
     //歌单id
     this.id=id
+    this.subscribedCount=subscribedCount
+    this.scmy=scmy
   }
   
 }
