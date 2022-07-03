@@ -1,5 +1,5 @@
 ## 前言
-功能目前还有没完成百分百，目前实现歌单，排行，mv，新碟，歌词，歌手，推荐，登录，注册，搜索，用户音乐，用户朋友圈，评论展示，移动端展示功能等功能。<br>
+功能没有完全实现，目前实现歌单，排行，mv，新碟，歌词，歌手，推荐，登录，注册，搜索，用户音乐，用户朋友圈，评论展示，移动端展示功能等功能。<br>
 肝代码不易,随手点个Star再走呗
 ## 介绍
 基于网易云api开发，模仿网易云pc端。<br>
@@ -7,6 +7,8 @@
 ## 使用说明
 如果请求无数据，请查看请求地址与接口地址是否一致<br>
 该项目仅供学习使用，不作商用
+## 感谢
+[Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 ## 安装
 
 ```
@@ -17,9 +19,6 @@ npm install
 ```
 npm run serve
 ```
-
-## 感谢
-[Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 ## 项目效果
 ### 首页
 | 首页 |  |
@@ -68,5 +67,7 @@ npm run serve
 | --- | --- |
 |![加载失败](./img/%E6%AD%8C%E8%AF%8D.gif "歌词页")| ![加载失败](./img/%E6%90%9C%E7%B4%A2.gif "搜索页")|  
 ## 后续准备
+代码优化<br>
+准备用vue3将移动端重构,若有进展会及时更新
 
 
