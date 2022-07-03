@@ -31,7 +31,7 @@
           <div></div>
         </template>
       </navbar>
-      <plxx lxa="2" @sx="sxa"></plxx>
+      <!-- <plxx lxa="2" @sx="sxa"></plxx> -->
       <div class="zx">最新评论</div>
       <pinlun :sxpl='shuax' :id="obj.id" class="pla"></pinlun>
     </div>
